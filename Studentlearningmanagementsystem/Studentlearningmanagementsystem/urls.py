@@ -23,5 +23,5 @@ from . import views, HOD_views, Student_views, Staff_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('base/', views.BASE, name = 'base' )
-    
+
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
