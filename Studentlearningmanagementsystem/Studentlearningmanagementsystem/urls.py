@@ -25,6 +25,8 @@ urlpatterns = [
     path('base/', views.BASE, name = 'base' ),
 
     #Login Path
-    path('login/', views.LOGIN, name = 'login'),
+    path('', views.LOGIN, name = 'login'),
+    path('doLogin', views.doLogin, name = 'doLogin')
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
