@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 <div class="row">
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <form method="post" action="#" enctype="multipart/form-data">
+                <form method="post" action="{% url 'add_student' %}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h5 class="form-title">Add Student</h5>
                     {% if messages %}
@@ -56,7 +57,6 @@
                         <label>Session Year</label>
                         <select class="form-control" name="session_year_id" required>
                             <option value="">Select Year</option>
-                            <option>Select Session year</option>
                             {% for i in session_year %}
                             <option value="{{i.session_start}}">{{i.session_start}} To {{i.session_end}}</option>
                             {% endfor %}
@@ -69,7 +69,6 @@
                     <div class="form-group">
                         <label>Course</label>
                         <select class="form-control" name="course_id" required>
-                            <option value="">Select Course</option>
                             <option>Select Course</option>
                             {% for i in course%}
                             <option value="{{i.course_code}}">{{i.course_code}} --> {{i.course_title}}</option>

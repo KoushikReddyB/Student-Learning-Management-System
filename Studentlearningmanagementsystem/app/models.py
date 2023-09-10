@@ -62,4 +62,4 @@ class Student(models.Model):
         db_table = 'student_table'
 
     def __str__(self):
-        return self.admin.first_name +     + self.admin.last_name       
+        return str(self.admin.first_name + self.admin.last_name)
