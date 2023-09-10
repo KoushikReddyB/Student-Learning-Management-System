@@ -34,3 +34,6 @@ def doLogin(request):
 def doLogout(request):
     logout(request)
     return redirect('login')
+
+def PROFILE(request):
+    return render (request,'profile.html')

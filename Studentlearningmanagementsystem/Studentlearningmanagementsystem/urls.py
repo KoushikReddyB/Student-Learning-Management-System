@@ -24,10 +24,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('base/', views.BASE, name = 'base' ),
 
-    #Login Path
+    # <LOGIN PATH>
     path('', views.LOGIN, name = 'login'),
     path('doLogin', views.doLogin, name = 'doLogin'),
     path('doLogout',views.doLogout, name = 'Logout'),
+
+    # <PROFILE UPDATE>
+    path('profile',views.PROFILE,name = 'profile'),
+
     # <HOD PANEL>
     path('HOD/home', HOD_views.HOME, name='HOD_home',)
 
