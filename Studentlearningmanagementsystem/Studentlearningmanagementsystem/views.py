@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from app.EmailBackEnd import EmailBackEnd
 from django.contrib.auth import authenticate, logout, login
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def BASE(request):
     return render(request, 'base.html')
@@ -18,7 +19,7 @@ def doLogin(request):
             login(request, user)
             user_type = user.user_type
             if user_type == '1':
-                return HttpResponse('This is HoD Panel')
+                return redirect('HOD_home')
             elif user_type == '2':
                 return HttpResponse('This is Staff Panel')
             elif user_type == '3':
@@ -30,4 +31,6 @@ def doLogin(request):
             messages.error(request, 'Either Email or Password Are Invalid! ')
             return redirect('login')
 
-            
+def doLogout(request):
+    logout(request)
+    return redirect('login')
