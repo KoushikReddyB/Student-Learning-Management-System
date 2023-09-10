@@ -14,98 +14,37 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Profile Pic</label>
-                                <input type="file" class="form-control">
+                                <input type="file" class="form-control" name="profile_pic">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="first_name">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="last_name">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label>E-Mail</label>
-                                <input type="text" class="form-control" placeholder="email@spd18.in">
+                                <input type="text" class="form-control" placeholder="email@spd18.in" name="email" readonly>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" class="form-control" placeholder="username2069">
-                            </div>
-                        </div>
-                        <div class="{% extends 'base.html' %}
-{% block content %}
-<div class="row">
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-body">
-                <form>
-                    <div class="row">
-                        <div class="col-12">
-                            <h5 class="form-title"><span>Profile Update</span></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Profile Pic</label>
-                                <input type="file" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>E-Mail</label>
-                                <input type="text" class="form-control" placeholder="email@spd18.in">
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" class="form-control" placeholder="username2069">
+                                <input type="text" class="form-control" placeholder="username2069" name="username" readonly>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" placeholder="Fill only if you want to change the Password">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-">
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" placeholder="Fill only if you want to change the Password">
+                                <input type="password" class="form-control"  name="password" placeholder="Fill only if you want to change the Password">
                             </div>
                         </div>
                     </div>

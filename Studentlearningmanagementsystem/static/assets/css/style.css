@@ -1454,7 +1454,7 @@ div.dataTables_wrapper div.dataTables_info {
     display: flex;
     align-items: center;
     border-top: 1px solid #e3e3e3;
-    padding: 10px 15px;
+    padding: 10px px;
 }
 .user-menu .dropdown-menu .dropdown-item:hover {
     color: #FFBC53;
