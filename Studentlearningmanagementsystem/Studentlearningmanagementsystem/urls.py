@@ -26,7 +26,10 @@ urlpatterns = [
 
     #Login Path
     path('', views.LOGIN, name = 'login'),
-    path('doLogin', views.doLogin, name = 'doLogin')
+    path('doLogin', views.doLogin, name = 'doLogin'),
+
+    # <HOD PANEL>
+    path('HOD/home', HOD_views.HOME, name='home',)
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
