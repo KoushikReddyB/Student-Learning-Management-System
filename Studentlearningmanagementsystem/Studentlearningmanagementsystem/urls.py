@@ -31,7 +31,7 @@ urlpatterns = [
 
     # <PROFILE UPDATE>
     path('profile',views.PROFILE,name = 'profile'),
-
+    path('Profile/update',views.PROFILE_UPDATE,name='profile_update'),
     # <HOD PANEL>
     path('HOD/home', HOD_views.HOME, name='HOD_home',)
 
