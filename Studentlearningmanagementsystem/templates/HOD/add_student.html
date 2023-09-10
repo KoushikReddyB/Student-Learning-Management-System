@@ -56,7 +56,10 @@
                         <label>Session Year</label>
                         <select class="form-control" name="session_year_id" required>
                             <option value="">Select Year</option>
-                            <!-- Add options for session years here -->
+                            <option>Select Session year</option>
+                            {% for i in session_year %}
+                            <option value="{{i.session_start}}">{{i.session_start}} To {{i.session_end}}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
@@ -67,7 +70,10 @@
                         <label>Course</label>
                         <select class="form-control" name="course_id" required>
                             <option value="">Select Course</option>
-                            <!-- Add options for courses here -->
+                            <option>Select Course</option>
+                            {% for i in course%}
+                            <option value="{{i.course_code}}">{{i.course_code}} --> {{i.course_title}}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">

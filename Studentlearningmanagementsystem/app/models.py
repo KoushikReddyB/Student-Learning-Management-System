@@ -46,6 +46,9 @@ class Session_Year(models.Model):
     class Meta:
         db_table = 'session_year_table'
 
+    def __str__(self):
+        return self.session_start +  '-->'  + self.session_end    
+
 class Student(models.Model):
     admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     address = models.TextField()
