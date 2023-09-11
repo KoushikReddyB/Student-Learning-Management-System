@@ -167,15 +167,35 @@ def VIEW_PROGRAM(request):
     }
     return render(request, 'Hod/view_program.html', context)
 
+
 @login_required(login_url='/')
-def EDIT_PROGRAM(request):
-    return None
+def EDIT_PROGRAM(request, id):
+    program = Program.objects.get(id=id)
+
+    context = {
+        'program': program,
+    }
+    return render(request, 'Hod/edit_program.html', context)
+
 
 @login_required(login_url='/')
 def UPDATE_PROGRAM(request):
-    return None
+    if request.method == "POST":
+        name = request.POST.get('name')
+        program_id = request.POST.get('program_id')
+
+        program = Program.objects.get(id = program_id)
+        program.name = name 
+        program.save()
+        messages.success(request, 'Record is Successfully Updated! ')
+        return redirect('view_program')
+    return render(request, 'view_program.html')
 
 
 @login_required(login_url='/')
-def DELETE_PROGRAM(request):
-    return None
+def DELETE_PROGRAM(request, id):
+    program = Program.objects.get(id = id)
+    program.delete()
+    messages.success(request, "Record is Successfully Purged!")
+
+    return redirect('view_program')
