@@ -24,15 +24,13 @@ def ADD_STUDENT(request):
         gender = request.POST.get('gender')
         course_id = request.POST.get('course_id')
         session_year_id = request.POST.get('session_year_id')
-        
-        # print(profile_pic, first_name, last_name, email, password, username, address, gender, course_id, session_year_id)
 
         if CustomUser.objects.filter(email=email).exists():
-            messages.warning(request, 'Email is Already Taken')
-            return redirect('add_student')
+           messages.warning(request,'Email Is Already Taken')
+           return redirect('add_student')
         if CustomUser.objects.filter(username=username).exists():
-            messages.warning(request, 'Username is Already Taken')
-            return redirect('add_student')
+           messages.warning(request,'Username Is Already Taken')
+           return redirect('add_student')
         else:
             user = CustomUser(
                 first_name = first_name,
@@ -44,20 +42,28 @@ def ADD_STUDENT(request):
             )
             user.set_password(password)
             user.save()
-            course = Course.objects.get(course_code = course_id)
-            session_year = Session_Year.objects.get(id = session_year_id)
-            Student = Student(
-                admin = user, 
+
+            course = Course.objects.get(id=course_id)
+            session_year = Session_Year.objects.get(id=session_year_id)
+
+            student = Student(
+                admin = user,
                 address = address,
-                gender = gender, 
-                session_year_id = session_year_id,
-                course_id = course_id,
+                session_year_id = session_year,
+                course_id = course,
+                gender = gender,
             )
-            Student.save()
-            messages.success(request, 'Successfully Added the Student')
-            
+            student.save()
+            messages.success(request, user.first_name + "  " + user.last_name + " Are Successfully Added !")
+            return redirect('add_student')
+
+
+
     context = {
-        'course': course ,
-        'session_year': session_year,
+        'course':course,
+        'session_year':session_year,
     }
-    return render(request, 'HOD/add_student.html', context)
+
+    return render(request,'Hod/add_student.html',context)
+	
+	
