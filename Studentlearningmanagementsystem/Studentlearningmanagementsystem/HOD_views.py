@@ -147,20 +147,29 @@ def DELETE_STUDENT(request, admin):
 @login_required(login_url='/')
 def ADD_PROGRAM(request):
     if request.method == 'POST':
-        program_name = request.POST.get('program_name')
+        program_name = request.POST.get('name')
 
         program = Program(
             name  = program_name,
         )
         program.save()
         messages.success(request, 'Record is Created Successfully!')
-    return None
+        return redirect('add_program')
+    return render(request, 'Hod/add_program.html')
 
+
+@login_required(login_url='/')
+def VIEW_PROGRAM(request):
+    program = Program.objects.all()
+    # print(program)
+    context = {
+        'program': program,
+    }
+    return render(request, 'Hod/view_program.html', context)
 
 @login_required(login_url='/')
 def EDIT_PROGRAM(request):
     return None
-
 
 @login_required(login_url='/')
 def UPDATE_PROGRAM(request):
