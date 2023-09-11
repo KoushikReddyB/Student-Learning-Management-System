@@ -19,7 +19,7 @@ class Program(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return str(self.name)
+        return self.name
     
     class Meta:
         db_table = "program_table"
