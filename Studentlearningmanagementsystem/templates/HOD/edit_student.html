@@ -47,11 +47,11 @@
                                  </div>
                                <br>
                                <div class="col-sm-11">
-                                    <label>Course</label>
-                                       <select class="form-control" name="course_id"  required>
-                                          <option>Select Course</option>
-                                           {% for i in course %}
-                                          <option value="{{i.id}}">{{i.course_code}} --> {{i.course_title}}</option>
+                                    <label>Program</label>
+                                       <select class="form-control" name="program_id"  required>
+                                          <option>Select Program</option>
+                                           {% for i in program %}
+                                          <option value="{{i.id}}">{{i.program_title}}</option>
                                            {% endfor %}
                                        </select>
                                  </div>

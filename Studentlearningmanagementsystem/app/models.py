@@ -13,6 +13,18 @@ class CustomUser(AbstractUser):
     class Meta:
         db_table = 'custom_user_table'
 
+class Program(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return str(self.name)
+    
+    class Meta:
+        db_table = "program_table"
+
+'''
 class Course(models.Model):
     id = models.AutoField(primary_key=True)
     course_code = models.CharField(max_length=20,blank=False)
@@ -38,6 +50,7 @@ class Course(models.Model):
     
     def __str__(self):
         return self.course_code
+'''
 
 class Session_Year(models.Model):
     session_start = models.CharField(max_length=100)
@@ -49,11 +62,12 @@ class Session_Year(models.Model):
     def __str__(self):
         return self.session_start +  '-->'  + self.session_end    
 
+        
 class Student(models.Model):
     admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     address = models.TextField()
     gender = models.CharField(max_length=100)
-    course_id = models.ForeignKey(Course, on_delete=models.DO_NOTHING)
+    program_id = models.ForeignKey(Program, on_delete=models.DO_NOTHING)
     session_year_id = models.ForeignKey(Session_Year, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True) 

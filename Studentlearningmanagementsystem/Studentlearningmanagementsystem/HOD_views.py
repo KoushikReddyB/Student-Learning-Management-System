@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from app.models import CustomUser
-from app.models import Course, Session_Year, Student
+from app.models import Program, Session_Year, Student
 from django.contrib import messages
 
 @login_required(login_url='/')
@@ -10,7 +10,7 @@ def HOME(request):
 
 @login_required(login_url='/')
 def ADD_STUDENT(request):
-    course = Course.objects.all()
+    program = Program.objects.all()
     session_year = Session_Year.objects.all()
 
     if request.method == "POST":
@@ -22,7 +22,7 @@ def ADD_STUDENT(request):
         password = request.POST.get('password')
         address = request.POST.get('address')
         gender = request.POST.get('gender')
-        course_id = request.POST.get('course_id')
+        program_id = request.POST.get('program_id')
         session_year_id = request.POST.get('session_year_id')
 
         if CustomUser.objects.filter(email=email).exists():
@@ -43,14 +43,14 @@ def ADD_STUDENT(request):
             user.set_password(password)
             user.save()
 
-            course = Course.objects.get(id=course_id)
+            program = Program.objects.get(id=program_id)
             session_year = Session_Year.objects.get(id=session_year_id)
 
             student = Student(
                 admin = user,
                 address = address,
                 session_year_id = session_year,
-                course_id = course,
+                program_id = program,
                 gender = gender,
             )
             student.save()
@@ -60,7 +60,7 @@ def ADD_STUDENT(request):
 
 
     context = {
-        'course':course,
+        'program':program,
         'session_year':session_year,
     }
 
@@ -80,15 +80,17 @@ def VIEW_STUDENT(request):
 @login_required(login_url='/')
 def EDIT_STUDENT(request, id):
     student = Student.objects.filter(id = id)
-    course = Course.objects.all()
+    program = Program.objects.all()
     session = Session_Year.objects.all()
     context = {
         'student':student,
-        'course': course,
+        'program': program,
         'session': session,
     }
     return render(request, 'Hod/edit_student.html', context)
 
+
+@login_required(login_url='/')
 def UPDATE_STUDENT(request):
     if request.method == 'POST':
         student_id = request.POST.get('student_id')
@@ -101,7 +103,7 @@ def UPDATE_STUDENT(request):
         password = request.POST.get('password')
         address = request.POST.get('address')
         gender = request.POST.get('gender')
-        course_id = request.POST.get('course_id')
+        program_id = request.POST.get('program_id')
         session_year_id = request.POST.get('session_year_id')
 
         user = CustomUser.objects.get(id = student_id)
@@ -121,8 +123,8 @@ def UPDATE_STUDENT(request):
         student.address = address
         student.gender = gender
 
-        course = Course.objects.get(id = course_id)
-        student.course_id = course 
+        program = Program.objects.get(id = program_id)
+        student.program_id = program 
 
         session_year = Session_Year.objects.get( id = session_year_id)
         student.session_year_id = session_year
@@ -133,6 +135,8 @@ def UPDATE_STUDENT(request):
     
     return render(request, 'Hod/edit_student.html')
 
+
+@login_required(login_url='/')
 def DELETE_STUDENT(request, admin):
     student = CustomUser.objects.get(id = admin)
     student.delete()
@@ -140,4 +144,29 @@ def DELETE_STUDENT(request, admin):
     messages.success(request, 'Record is Successfully Deleted!')
     return redirect('view_student')
 
-    
+@login_required(login_url='/')
+def ADD_PROGRAM(request):
+    if request.method == 'POST':
+        program_name = request.POST.get('program_name')
+
+        program = Program(
+            name  = program_name,
+        )
+        program.save()
+        messages.success(request, 'Record is Created Successfully!')
+    return None
+
+
+@login_required(login_url='/')
+def EDIT_PROGRAM(request):
+    return None
+
+
+@login_required(login_url='/')
+def UPDATE_PROGRAM(request):
+    return None
+
+
+@login_required(login_url='/')
+def DELETE_PROGRAM(request):
+    return None
