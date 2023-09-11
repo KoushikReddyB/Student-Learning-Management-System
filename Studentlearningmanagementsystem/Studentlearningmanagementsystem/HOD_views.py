@@ -65,7 +65,9 @@ def ADD_STUDENT(request):
     }
 
     return render(request,'Hod/add_student.html',context)
-	
+
+
+@login_required(login_url='/')
 def VIEW_STUDENT(request):
     student = Student.objects.all()
     print(student)
@@ -74,5 +76,15 @@ def VIEW_STUDENT(request):
     }
     return render(request, 'Hod/view_student.html', context)
 
-def EDIT_STUDENT(request):
-    return render(request, 'Hod/edit_student.html')
+
+@login_required(login_url='/')
+def EDIT_STUDENT(request, id):
+    student = Student.objects.filter(id = id)
+    course = Course.objects.all()
+    session = Session_Year.objects.all()
+    context = {
+        'student':student,
+        'course': course,
+        'session': session,
+    }
+    return render(request, 'Hod/edit_student.html', context)
