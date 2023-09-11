@@ -66,4 +66,13 @@ def ADD_STUDENT(request):
 
     return render(request,'Hod/add_student.html',context)
 	
-	
+def VIEW_STUDENT(request):
+    student = Student.objects.all()
+    print(student)
+    context = {
+        'student': student,
+    }
+    return render(request, 'Hod/view_student.html', context)
+
+def EDIT_STUDENT(request):
+    return render(request, 'Hod/edit_student.html')
