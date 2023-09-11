@@ -70,7 +70,7 @@ def ADD_STUDENT(request):
 @login_required(login_url='/')
 def VIEW_STUDENT(request):
     student = Student.objects.all()
-    print(student)
+    # print(student)
     context = {
         'student': student,
     }
