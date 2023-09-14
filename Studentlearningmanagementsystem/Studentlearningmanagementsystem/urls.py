@@ -47,8 +47,8 @@ urlpatterns = [
     path('HOD/Program/Update', HOD_views.UPDATE_PROGRAM, name='update_program'),
     path('HOD/Program/Delete/<str:id>', HOD_views.DELETE_PROGRAM, name='delete_program'),
     ####
-    path('HOD/Staff/Add', HOD_views.ADD_STAFF, name = 'add_staff')
-    path('HOD/Staff/View', HOD_views.VIEW_STAFF, name = 'view_staff')
+    path('HOD/Staff/Add', HOD_views.ADD_STAFF, name = 'add_staff'),
+    path('HOD/Staff/View', HOD_views.VIEW_STAFF, name = 'view_staff'),
     
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

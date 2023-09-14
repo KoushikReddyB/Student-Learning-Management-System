@@ -199,3 +199,11 @@ def DELETE_PROGRAM(request, id):
     messages.success(request, "Record is Successfully Purged!")
 
     return redirect('view_program')
+
+@login_required(login_url='/')
+def ADD_STAFF(request):
+    return render(request, 'Hod/add_staff.html')
+
+@login_required(login_url='/')
+def VIEW_STAFF(request):
+    return render(request, 'Hod/view_staff.html')
