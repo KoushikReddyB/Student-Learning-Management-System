@@ -40,11 +40,16 @@ urlpatterns = [
     path('HOD/Student/Edit/<str:id>', HOD_views.EDIT_STUDENT, name='edit_student'),
     path('HOD/Student/Update', HOD_views.UPDATE_STUDENT, name='update_student'),
     path('HOD/Student/Delete/<str:admin>', HOD_views.DELETE_STUDENT, name='delete_student'),
+    ####
     path('HOD/Program/Add', HOD_views.ADD_PROGRAM, name = 'add_program'),
     path('HOD/Program/View', HOD_views.VIEW_PROGRAM, name='view_program'),
     path('HOD/Program/Edit/<str:id>', HOD_views.EDIT_PROGRAM, name='edit_program'),
     path('HOD/Program/Update', HOD_views.UPDATE_PROGRAM, name='update_program'),
     path('HOD/Program/Delete/<str:id>', HOD_views.DELETE_PROGRAM, name='delete_program'),
+    ####
+    path('HOD/Staff/Add', HOD_views.ADD_STAFF, name = 'add_staff')
+    path('HOD/Staff/View', HOD_views.VIEW_STAFF, name = 'view_staff')
+    
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
