@@ -3,78 +3,77 @@
 
 <div class="content container-fluid">
     <div class="page-header">
-       <div class="row align-items-center">
-          <div class="col">
-             <h3 class="page-title">Staff</h3>
-             <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                <li class="breadcrumb-item active">Staff</li>
-             </ul>
-          </div>
-          {% include 'includes/messages.html' %}
-          <div class="col-auto text-right float-right ml-auto">
-             <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
-             <a href="{% url 'add_staff' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
-          </div>
-       </div>
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Staff</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Staff</li>
+                </ul>
+            </div>
+            {% include 'includes/messages.html' %}
+            <div class="col-auto text-right ml-auto">
+                <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+                <a href="{% url 'add_staff' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+            </div>
+        </div>
     </div>
     <div class="row">
-       <div class="col-sm-12">
-          <div class="card card-table">
-             <div class="card-body">
-                <div class="table-responsive">
-                   <table class="table table-hover table-center mb-0 datatable">
-                      <thead>
-                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>E-Mail</th>
-                            <th>Gender</th>
-                            <th>Desgination</th>
-                            <th>Address</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th class="text-right">Action</th>
-                         </tr>
-                      </thead>
-                      <tbody>
-                        {% for i in student %}
-                         <tr>
-                            <td>{{i.id}}</td>
-                            <td>
-                               <h2 class="table-avatar">
-                                  <a href="student-details.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="/{{i.admin.profile_pic}}" alt="User Image"></a>
-                                  <a href="student-details.html">{{i.admin.first_name}}&nbsp;{{i.admin.last_name}}</a>
-                               </h2>
-                            </td>
-                            <td>{{i.admin.email}}</td>
-                            <td>{{i.program_id.name}}</td>
-                            <td>{{i.gender}}</td>
-                            <td>{{i.session_year_id.session_start}} To {{i.session_year_id.session_end}}</td>
-                            <td>{{i.address}}</td>
-                            <td>{{i.created_at}}</td>
-                            <td>{{i.updated_at}}</td>
-                            <td class="text-right">
-                               <div class="actions">
-                                  <a href="{% url 'edit_student' i.id %}" class="btn btn-sm bg-success-light mr-2">
-                                  <i class="fas fa-pen"></i>
-                                  </a>
-                                  <a href="{% url 'delete_student' i.admin.id%}" class="btn btn-sm bg-danger-light">
-                                  <i class="fas fa-trash"></i>
-                                  </a>
-                               </div>
-                            </td>
-                         </tr>
-                         {% endfor %}
-                      </tbody>
-                   </table>
+        <div class="col-sm-12">
+            <div class="card card-table">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-center mb-0 datatable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>E-Mail</th>
+                                    <th>Gender</th>
+                                    <th>Designation</th>
+                                    <th>Address</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th class="text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in staff %}
+                                <tr>
+                                    <td>{{i.id}}</td>
+                                    <td>
+                                        <div class="table-avatar">
+                                            <a href="student-details.html" class="avatar avatar-sm mr-2"><img
+                                                    class="avatar-img rounded-circle"
+                                                    src="/{{i.admin.profile_pic}}" alt="User Image"></a>
+                                            <a href="student-details.html">{{i.admin.first_name}}&nbsp;{{i.admin.last_name}}</a>
+                                        </div>
+                                    </td>
+                                    <td>{{i.admin.email}}</td>
+                                    <td>{{i.gender}}</td>
+                                    <td>{{i.desgination}}</td>
+                                    <td>{{i.address}}</td>
+                                    <td>{{i.created_at}}</td>
+                                    <td>{{i.updated_at}}</td>
+                                    <td class="text-right">
+                                        <div class="actions">
+                                            <a href="{% url 'edit_student' i.id %}" class="btn btn-sm bg-success-light mr-2">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a href="{% url 'delete_student' i.admin.id%}" class="btn btn-sm bg-danger-light">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-             </div>
-          </div>
-       </div>
+            </div>
+        </div>
     </div>
- </div>
+</div>
 
-{% endblock  %}
-
-
+{% endblock %}

@@ -219,6 +219,7 @@ def ADD_STAFF(request):
         if CustomUser.objects.filter(username=username).exists():
            messages.warning(request,'Email Is Already Taken')
            return redirect('add_staff')
+        
         else:
             user = CustomUser(
                 first_name = first_name,
@@ -245,4 +246,9 @@ def ADD_STAFF(request):
 
 @login_required(login_url='/')
 def VIEW_STAFF(request):
-    return render(request, 'Hod/view_staff.html')
+    staff = Staff.objects.all()
+    # print(staff)
+    context = {
+        'staff':staff,
+    }
+    return render(request, 'Hod/view_staff.html', context)
