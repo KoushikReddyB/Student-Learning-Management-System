@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from app.models import CustomUser
-from app.models import Program, Session_Year, Student
+from app.models import Program, Session_Year, Student, Staff
 from django.contrib import messages
 
 @login_required(login_url='/')
@@ -202,6 +202,45 @@ def DELETE_PROGRAM(request, id):
 
 @login_required(login_url='/')
 def ADD_STAFF(request):
+    if request.method=="POST":
+        profile_pic = request.FILES.get('profile_pic')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        address = request.POST.get('address')
+        gender = request.POST.get('gender')
+        desgination = request.POST.get('desgination')
+
+        if CustomUser.objects.filter(email=email).exists():
+           messages.warning(request,'Email Is Already Taken')
+           return redirect('add_staff')
+        if CustomUser.objects.filter(username=username).exists():
+           messages.warning(request,'Email Is Already Taken')
+           return redirect('add_staff')
+        else:
+            user = CustomUser(
+                first_name = first_name,
+                last_name = last_name,
+                username = username,
+                email = email,
+                profile_pic = profile_pic,
+                user_type = 2
+            )
+            user.set_password(password)
+            user.save()
+
+            staff = Staff(
+                admin = user,
+                address = address,
+                desgination = desgination,
+                gender = gender,
+            )
+            staff.save()
+            messages.success(request, user.first_name + " " + user.last_name + " is Successfully Added !")
+            return redirect('add_staff')
+            
     return render(request, 'Hod/add_staff.html')
 
 @login_required(login_url='/')
