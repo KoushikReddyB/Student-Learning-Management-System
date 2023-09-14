@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'Studentlearningmanagementsystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'slmsdatabase',
+        'NAME': 'sdb',
         'USER': 'postgres',
         'PASSWORD': 'zap',
         'HOST': 'localhost',
