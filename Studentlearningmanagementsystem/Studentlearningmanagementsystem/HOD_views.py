@@ -302,5 +302,9 @@ def UPDATE_STAFF(request):
 
 
 @login_required(login_url='/')
-def DELETE_STAFF(request, id):
+def DELETE_STAFF(request, admin):
+    staff = CustomUser.objects.get(id = admin)
+    staff.delete()
+
+    messages.success(request, 'Record is Successfully Deleted!')
     return redirect('view_staff')
