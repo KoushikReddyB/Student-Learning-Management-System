@@ -344,7 +344,12 @@ def ADD_COURSE(request):
 
 @login_required(login_url='/')
 def VIEW_COURSE(request):
-    return render(request, 'Hod/view_course.html')
+    course = Course.objects.all()
+    # print(course)
+    context = {
+        'course':course,
+    }
+    return render(request, 'Hod/view_course.html', context)
 
 @login_required(login_url='/')
 def EDIT_COURSE(request, id):
