@@ -400,4 +400,22 @@ def DELETE_COURSE(request, id):
     messages.success(request, 'Course is Successfully Deleted in the database!')
     return redirect('view_course')
 
-@login_required
+@login_required(login_url='/')
+def ADD_SESSION(request):
+    return render(request, 'Hod/add_session.html')
+
+@login_required(login_url='/')
+def VIEW_SESSION(request):
+    return render(request, 'Hod/view_session.html')
+
+@login_required(login_url='/')
+def EDIT_SESSION(request, id):
+    return render(request, 'Hod/view_session.html')
+
+@login_required(login_url='/')
+def UPDATE_SESSION(request):
+    return render(request, 'Hod/view_session.html')
+
+@login_required(login_url='/')
+def DELETE_SESSION(request, id):
+    return render(request, 'Hod/view_session.html')
