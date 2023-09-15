@@ -57,7 +57,7 @@ class Staff(models.Model):
     gender = models.CharField(max_length=100)
     desgination = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now_add=True) 
 
     class Meta:
         db_table = 'staff_table'
@@ -72,8 +72,8 @@ class Course(models.Model):
 
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    updated_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True) 
 
     class Meta:
         db_table = 'course_table'

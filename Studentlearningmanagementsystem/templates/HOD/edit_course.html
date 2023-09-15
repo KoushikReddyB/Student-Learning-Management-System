@@ -24,25 +24,29 @@
                                        <input type="text" class="form-control" name="course_title" value="{% for i in course %}{{i.course_title}}{% endfor %}" required>
                                     </div>
                                  </div>
-                               <div class="col-sm-11">
+                                 <div class="col-sm-11">
                                     <label>Program</label>
-                                       <select class="form-control" name="program_id"  required>
-                                          <option>Select Program</option>
-                                           {% for i in program %}
-                                          <option value="{{i.id}}">{{i.name}}</option>
-                                           {% endfor %}
-                                       </select>
-                                 </div>
-                              <br>
-                              <div class="col-sm-11">
-                                <label>Staff</label>
-                                   <select class="form-control" name="staff_id"  required>
-                                      <option>Select Staff</option>
-                                       {% for i in staff %}
-                                      <option value="{{i.id}}">{{i.id}} - {{i.first_name}} {{i.last_name}}</option>
-                                       {% endfor %}
-                                   </select>
-                             </div>
+                                    <select class="form-control" name="program_id" required>
+                                        <option>Select Program</option>
+                                        {% for p in program %}
+                                            <option value="{{ p.id }}" {% if p.id == course.program.id %}selected{% endif %}>
+                                                {{ p.name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <div class="col-sm-11">
+                                    <label>Staff</label>
+                                    <select class="form-control" name="staff_id" required>
+                                        <option>Select Staff</option>
+                                        {% for s in staff %}
+                                            <option value="{{ s.id }}" {% if s.id == course.staff.id %}selected{% endif %}>
+                                                {{ s.admin.id }} - {{ s.admin.first_name }} {{ s.admin.last_name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>                                
                           <br>
                                <br>
                                  <div class="col-12">
