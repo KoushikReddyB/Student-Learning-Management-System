@@ -402,6 +402,17 @@ def DELETE_COURSE(request, id):
 
 @login_required(login_url='/')
 def ADD_SESSION(request):
+    if request.method == 'POST':
+        session_start = request.POST.get('session_start')
+        session_end = request.POST.get('session_end')
+
+        session = Session_Year(
+            session_start = session_start,
+            session_end = session_end
+        )
+        session.save()
+        messages.success(request, 'Session is Created Successfully!')
+        return redirect('add_session')
     return render(request, 'Hod/add_session.html')
 
 @login_required(login_url='/')
