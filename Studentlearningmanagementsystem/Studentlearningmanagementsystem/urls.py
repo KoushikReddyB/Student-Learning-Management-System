@@ -52,6 +52,13 @@ urlpatterns = [
     path('HOD/Staff/Edit/<str:id>', HOD_views.EDIT_STAFF, name='edit_staff'),
     path('HOD/Staff/Update', HOD_views.UPDATE_STAFF, name='update_staff'),
     path('HOD/Staff/Delete/<str:admin>', HOD_views.DELETE_STAFF, name='delete_staff'),
+    ####
+    path('HOD/Course/Add', HOD_views.ADD_COURSE, name = 'add_course'),
+    path('HOD/Course/View', HOD_views.VIEW_COURSE, name = 'view_course'),
+    path('HOD/Course/Edit/<str:id>', HOD_views.EDIT_COURSE, name='edit_course'),
+    path('HOD/Course/Update', HOD_views.UPDATE_COURSE, name='update_course'),
+    path('HOD/Course/Delete/<str:int>', HOD_views.DELETE_COURSE, name='delete_course'),
+    ####
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

@@ -13,7 +13,7 @@
                 <a href="#"><i class="fas fa-user-graduate"></i> <span> Students</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url 'add_student' %}">Add Student</a></li>
-                   <li><a href="{% url 'view_student' %}">View Student</a></li>
+                   <li><a href="{% url 'view_student' %}">View Students</a></li>
                 </ul>
              </li>
              <li class="submenu">
@@ -27,23 +27,21 @@
                 <a href="#"><i class="fa fa-graduation-cap"></i> <span> Program</span> <span class="menu-arrow"></span></a>
                 <ul>
                    <li><a href="{% url 'add_program' %}">Add Program</a></li>
-                   <li><a href="{% url 'view_program' %}">View Program</a></li>
+                   <li><a href="{% url 'view_program' %}">View Programs</a></li>
                 </ul>
              </li>
              <li class="submenu">
                 <a href="#"><i class="fas fa-book-reader"></i> <span> Courses</span> <span class="menu-arrow"></span></a>
                 <ul>
-                   <li><a href="subjects.html">Courses View</a></li>
-                   <li><a href="add-subject.html">Courses Add</a></li>
-                   <li><a href="edit-subject.html">Courses Edit</a></li>
+                   <li><a href="{% url 'add_course' %}">Add Course</a></li>
+                   <li><a href="#">View Courses</a></li>
                 </ul>
              </li>
              <li class="submenu">
                <a href="#"><i class="fa fa-calendar"></i> <span> Sessions</span> <span class="menu-arrow"></span></a>
                <ul>
-                  <li><a href="subjects.html">Session View</a></li>
-                  <li><a href="add-subject.html">Session Add</a></li>
-                  <li><a href="edit-subject.html">Session Edit</a></li>
+                  <li><a href="#">Add Session</a></li>
+                  <li><a href="#">View Sessions</a></li>
                </ul>
             </li>
             <li>

@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from app.models import CustomUser
-from app.models import Program, Session_Year, Student, Staff
+from app.models import Program, Session_Year, Student, Staff, Course
 from django.contrib import messages
 
 @login_required(login_url='/')
@@ -280,6 +280,7 @@ def UPDATE_STAFF(request):
 
         user = CustomUser.objects.get(id = staff_id)
         user.profile_pic = profile_pic
+        user.first_name = first_name
         user.last_name = last_name
         user.email = email
         user.username = username
@@ -308,3 +309,52 @@ def DELETE_STAFF(request, admin):
 
     messages.success(request, 'Record is Successfully Deleted!')
     return redirect('view_staff')
+
+@login_required(login_url='/')
+def ADD_COURSE(request):
+    program = Program.objects.all()
+    staff = Staff.objects.all()
+
+    if request.method == 'POST':
+        course_code = request.POST.get('course_code')
+        course_title = request.POST.get('course_title')
+        program_id = request.POST.get('program_id')
+        staff_id = request.POST.get('staff_id')
+
+        program = Program.objects.get(id = program_id)
+        staff = Staff.objects.get(id = staff_id)
+
+        course = Course(
+            course_code = course_code,
+            course_title = course_title,
+            program = program, 
+            staff = staff,
+        )
+        course.save()
+        messages.success(request, course_code + " is Successfully Added !")
+        
+        return redirect('add_course')
+
+    context = {
+        'program': program,
+        'staff': staff,
+    }
+
+    return render(request, 'Hod/add_course.html', context)
+
+@login_required(login_url='/')
+def VIEW_COURSE(request):
+    return render(request, 'Hod/view_course.html')
+
+@login_required(login_url='/')
+def EDIT_COURSE(request, id):
+    return render(request, 'Hod/edit_course.html')
+
+@login_required(login_url='/')
+def UPDATE_COURSE(request):
+    return render(request, 'Hod/view_course.html')
+
+@login_required(login_url='/')
+def DELETE_COURSE(request, id):
+    return render(request, 'Hod/view_course.html')
+

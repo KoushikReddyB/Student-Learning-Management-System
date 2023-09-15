@@ -24,33 +24,6 @@ class Program(models.Model):
     class Meta:
         db_table = "program_table"
 
-'''
-class Course(models.Model):
-    id = models.AutoField(primary_key=True)
-    course_code = models.CharField(max_length=20,blank=False)
-    course_title = models.CharField(max_length=100,blank=False)
-
-    department_choises = ( ("CSE","CSE"), ("CS&IT","CS&IT"), ("AI&DS","AI&DS"), ("ECS","ECE"), ("EEE","EEE"), ("IoT","IoT"), ("BT","BT"), ("ME","ME"), ("CIVIL","CIVIL")  )
-    department = models.CharField(max_length=50,blank=False,choices=department_choises)
-    
-    program_choise = ( ("B.Tech","B.Tech"), ("M.Tech","M.Tech"))
-    program = models.CharField(max_length=30,blank=False,choices=program_choise)
-    
-    academic_year_choises = ( ("2020-2021", "2020-21"), ("2021-2022", "2021-22"), ("2022-2023", "2022-23"), ("2023-2024", "2023-24"))
-    academic_year = models.CharField(max_length=100,blank=False,choices=academic_year_choises)
-
-    sem_choise = ( ("ODD","ODD"), ("EVEN","EVEN"), ("SUMMER","SUMMER") )
-    semester = models.CharField(max_length=10,blank=False,choices=sem_choise)
-
-    year_choise = ( ("1st", "1st"), ("2nd", "2nd"), ("3rd", "3rd"), ("4th", "4th"), ("5th", "5th"))
-    year = models.CharField(max_length=10,blank=False,choices=year_choise)
-
-    class Meta:
-        db_table = 'course_table'
-    
-    def __str__(self):
-        return self.course_code
-'''
 
 class Session_Year(models.Model):
     session_start = models.CharField(max_length=100)
@@ -91,3 +64,19 @@ class Staff(models.Model):
 
     def __str__(self):
         return self.admin.username
+    
+
+class Course(models.Model):
+    course_code = models.CharField(max_length=20,blank=False)
+    course_title = models.CharField(max_length=100,blank=False)
+
+    program = models.ForeignKey(Program, on_delete=models.CASCADE)
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    updated_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'course_table'
+    
+    def __str__(self):
+        return self.course_code
