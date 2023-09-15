@@ -427,12 +427,36 @@ def VIEW_SESSION(request):
 
 @login_required(login_url='/')
 def EDIT_SESSION(request, id):
-    return render(request, 'Hod/view_session.html')
+    session = Session_Year.objects.get(id=id)
+ 
+    context = {
+        'session': session,
+    }
+    return render(request, 'Hod/edit_session.html', context)
+
 
 @login_required(login_url='/')
 def UPDATE_SESSION(request):
+    if request.method == 'POST':
+        session_id = request.POST.get('session_id')
+        session_start = request.POST.get('session_start')
+        session_end = request.POST.get('session_end')
+
+        session = Session_Year.objects.get(id=session_id)
+        session.session_start = session_start
+        session.session_end = session_end
+        session.save()
+
+        messages.success(request, 'Session is Successfully Updated!')
+        return redirect('view_session')
     return render(request, 'Hod/view_session.html')
+
 
 @login_required(login_url='/')
 def DELETE_SESSION(request, id):
-    return render(request, 'Hod/view_session.html')
+    session = Session_Year.objects.get(id=id)
+    session.delete()
+ 
+    messages.success(request, 'Session is Successfully Purged from the database!')
+    return redirect('view_session')
+

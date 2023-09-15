@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="{% url 'update_session' %}" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="col-12">
+                <h5 class="form-title"><span>Edit Session</span></h5>
+              </div>
+              {% include 'includes/messages.html' %}
+              <div class="col-sm-11">
+                <div class="form-group">
+                  <label>Session Start</label>
+                  <input type="text" class="form-control" name="session_start" value="{{ session.session_start }}" required>
+                  <input type="text" class="form-control" name="session_id" value="{{ session.id }}" required readonly hidden>
+                </div>
+              </div>
+              <br>
+              <div class="col-sm-11">
+                <div class="form-group">
+                  <label>Session End</label>
+                  <input type="text" class="form-control" name="session_end" value="{{ session.session_end }}" required>
+                </div>
+              </div>          
+          <br>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Update Session</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
