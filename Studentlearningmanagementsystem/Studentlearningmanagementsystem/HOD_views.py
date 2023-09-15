@@ -417,7 +417,13 @@ def ADD_SESSION(request):
 
 @login_required(login_url='/')
 def VIEW_SESSION(request):
-    return render(request, 'Hod/view_session.html')
+    session = Session_Year.objects.all()
+    # print(course)
+    context = {
+        'session': session,
+    }
+    return render(request, 'Hod/view_session.html', context)
+
 
 @login_required(login_url='/')
 def EDIT_SESSION(request, id):
