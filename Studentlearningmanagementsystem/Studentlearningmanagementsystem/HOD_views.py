@@ -400,3 +400,4 @@ def DELETE_COURSE(request, id):
     messages.success(request, 'Course is Successfully Deleted in the database!')
     return redirect('view_course')
 
+@login_required
