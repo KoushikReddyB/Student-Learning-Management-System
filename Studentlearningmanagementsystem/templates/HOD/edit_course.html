@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="row">
+                  <div class="col-sm-12">
+                     <div class="card">
+                        <div class="card-body">
+                           <form method="post" action="{% url 'update_course' %}" enctype="multipart/form-data">
+                              {% csrf_token %}
+                                 <div class="col-12">
+                                    <h5 class="form-title"><span>Edit Course</span></h5>
+                                 </div>
+                                 
+                                 {% include 'includes/messages.html' %}
+                                 <div class="col-sm-11">
+                                    <div class="form-group">
+                                       <label>Course Code</label>
+                                       <input type="text" class="form-control" name="course_code" value="{% for i in course %}{{i.course_code}}{% endfor %}" required>
+                                       <input type="text" class="form-control" name="course_id" value="{% for i in course %}{{i.id}}{% endfor %}" required readonly hidden>
+                                    </div>
+                                 </div>
+                                 <div class="col-sm-11">
+                                    <div class="form-group">
+                                       <label>Course Title</label>
+                                       <input type="text" class="form-control" name="course_title" value="{% for i in course %}{{i.course_title}}{% endfor %}" required>
+                                    </div>
+                                 </div>
+                               <div class="col-sm-11">
+                                    <label>Program</label>
+                                       <select class="form-control" name="program_id"  required>
+                                          <option>Select Program</option>
+                                           {% for i in program %}
+                                          <option value="{{i.id}}">{{i.name}}</option>
+                                           {% endfor %}
+                                       </select>
+                                 </div>
+                              <br>
+                              <div class="col-sm-11">
+                                <label>Staff</label>
+                                   <select class="form-control" name="staff_id"  required>
+                                      <option>Select Staff</option>
+                                       {% for i in staff %}
+                                      <option value="{{i.id}}">{{i.id}} - {{i.first_name}} {{i.last_name}}</option>
+                                       {% endfor %}
+                                   </select>
+                             </div>
+                          <br>
+                               <br>
+                                 <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Update Course</button>
+                                 </div>
+
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+{% endblock %}

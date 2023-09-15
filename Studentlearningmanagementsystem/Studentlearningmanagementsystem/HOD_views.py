@@ -353,13 +353,43 @@ def VIEW_COURSE(request):
 
 @login_required(login_url='/')
 def EDIT_COURSE(request, id):
-    return render(request, 'Hod/edit_course.html')
+    course = Course.objects.filter(id = id)
+    context = {
+        'course':course,
+    }
+    return render(request, 'Hod/edit_course.html', context)
 
 @login_required(login_url='/')
 def UPDATE_COURSE(request):
+    if request.method=='POST':
+        course_id = request.POST.get('course_id')
+        # print(course_id)
+        course_code = request.POST.get('course_code')
+        course_title = request.POST.get('course_title')
+        program_id = request.POST.get('program_id')
+        staff_id = request.POST.get('staff_id')
+
+        course = Course.objects.get(id = course_id)
+        course.course_code = course_code
+        course.course_title = course_title
+        
+        program = Program.objects.get(id = program_id)
+        course.program_id = program_id
+
+        staff = Staff.objects.get( id = staff_id)
+        course.session_year_id = staff_id
+
+        course.save()
+        messages.success(request, course_code, 'Course is Successfully Updated! ')
+        return redirect('view_course')
+
     return render(request, 'Hod/view_course.html')
 
 @login_required(login_url='/')
-def DELETE_COURSE(request, id):
-    return render(request, 'Hod/view_course.html')
+def DELETE_COURSE(request, id):    
+    course = CustomUser.objects.get(id = id)
+    course.delete()
+
+    messages.success(request, 'Course is Successfully Deleted in the database!')
+    return redirect('view_course')
 
