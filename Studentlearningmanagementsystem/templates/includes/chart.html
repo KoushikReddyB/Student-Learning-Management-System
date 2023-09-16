@@ -1,0 +1,142 @@
+<!-- Include ApexCharts library -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+    // JavaScript code for your ApexCharts
+
+    // Data for the donut chart
+    var donutData = [{{student_count}}, {{staff_count}}, {{course_count}}, {{program_count}}];
+
+    var donutOptions = {
+        series: donutData,
+        chart: {
+            width: 380,
+            type: 'donut',
+        },
+        labels: ['Students', 'Staff', 'Courses', 'Programs'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var donutChart = new ApexCharts(document.querySelector("#all_details"), donutOptions);
+    donutChart.render();
+
+    // Data for the bar chart
+    var barData = {
+        series: [{
+            name: "Boys",
+            color: '#fdbb38',
+            data: [{{student_gender_male}}],
+        }, {
+            name: "Girls",
+            color: '#19affb',
+            data: [{{student_gender_female}}],
+        }],
+        chart: {
+            type: 'bar',
+            height: 350,
+            width: '100%',
+            stacked: true,
+            toolbar: {
+                show: false
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        plotOptions: {
+            bar: {
+                columnWidth: '45%',
+            }
+        },
+        xaxis: {
+            labels: {
+                show: false
+            },
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false
+            },
+        },
+        yaxis: {
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false
+            },
+            labels: {
+                style: {
+                    colors: '#777'
+                }
+            }
+        },
+        title: {
+            text: '',
+            align: 'left',
+            style: {
+                fontSize: '18px'
+            }
+        }
+    };
+
+    var barChart = new ApexCharts(document.querySelector('#student_gender'), barData);
+    barChart.render();
+
+    // Data for the donut chart (Student and Staff)
+    var studentStaffData = [{{student_count}}, {{staff_count}}];
+
+    var studentStaffOptions = {
+        series: studentStaffData,
+        chart: {
+            width: 380,
+            type: 'donut',
+        },
+        labels: ['Students', 'Staff'],
+        plotOptions: {
+            pie: {
+                startAngle: -90,
+                endAngle: 270
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        fill: {
+            type: 'gradient',
+        },
+        legend: {
+            formatter: function(val, opts) {
+                return val + " - " + opts.w.globals.series[opts.seriesIndex]
+            }
+        },
+        title: {
+            text: 'Gradient Donut with custom Start-angle'
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var studentStaffChart = new ApexCharts(document.querySelector("#student_staff"), studentStaffOptions);
+    studentStaffChart.render();
+</script>

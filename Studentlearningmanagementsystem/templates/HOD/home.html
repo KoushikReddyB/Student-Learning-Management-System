@@ -78,25 +78,12 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <h5 class="card-title">Revenue</h5>
-                    </div>
-                    <div class="col-6">
-                        <ul class="list-inline-group text-right mb-0 pl-0">
-                            <li class="list-inline-item">
-                                <div class="form-group mb-0 amount-spent-select">
-                                    <select class="form-control form-control-sm">
-                                        <option>Today</option>
-                                        <option>Last Week</option>
-                                        <option>Last Month</option>
-                                    </select>
-                                </div>
-                            </li>
-                        </ul>
+                        <h5 class="card-title">All Data</h5>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <div id="apexcharts-area"></div>
+                <div id="all_details"></div>
             </div>
         </div>
     </div>
@@ -105,25 +92,35 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <h5 class="card-title">Number of Students</h5>
-                    </div>
-                    <div class="col-6">
-                        <ul class="list-inline-group text-right mb-0 pl-0">
-                            <li class="list-inline-item">
-                                <div class="form-group mb-0 amount-spent-select">
-                                    <select class="form-control form-control-sm">
-                                        <option>Today</option>
-                                        <option>Last Week</option>
-                                        <option>Last Month</option>
-                                    </select>
-                                </div>
-                            </li>
-                        </ul>
+                        <h3 class="card-title">Number of Students</h3>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <div id="bar"></div>
+                <div id="student_gender"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <div class="card card-chart">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h3 class="card-title">Student & Staff</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-6">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h3 class="card-title">Programs & Courses</h3>
+                            </div>
+                        </div>
+                </div>
+            <div class="card-body">
+                <div id="student_staff"></div>
             </div>
         </div>
     </div>
@@ -272,4 +269,5 @@
 </div>
 </div>
 </div>
+{% include 'includes/chart.html' %}
 {% endblock %}
