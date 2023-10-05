@@ -5,7 +5,7 @@
     // JavaScript code for your ApexCharts
 
     // Data for the donut chart
-    var donutData = [{{student_count}}, {{staff_count}}, {{course_count}}, {{program_count}}];
+    var donutData = [{{ student_count }}, {{ staff_count }}, {{ course_count }}, {{ program_count }}];
 
     var donutOptions = {
         series: donutData,
@@ -34,12 +34,10 @@
     var barData = {
         series: [{
             name: "Boys",
-            color: '#fdbb38',
-            data: [{{student_gender_male}}],
+            data: [{{ student_gender_male }}],
         }, {
             name: "Girls",
-            color: '#19affb',
-            data: [{{student_gender_female}}],
+            data: [{{ student_gender_female }}],
         }],
         chart: {
             type: 'bar',
@@ -95,7 +93,7 @@
     barChart.render();
 
     // Data for the donut chart (Student and Staff)
-    var studentStaffData = [{{student_count}}, {{staff_count}}];
+    var studentStaffData = [{{ student_count }}, {{ staff_count }}];
 
     var studentStaffOptions = {
         series: studentStaffData,

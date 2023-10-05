@@ -19,7 +19,7 @@
                         <i class="fas fa-user-graduate"></i>
                     </div>
                     <div class="db-info">
-                        <h3>{{student_count}}</h3>
+                        <h3>{{ student_count }}</h3>
                         <h6>Students</h6>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
                     <div class="db-info">
-                        <h3>{{staff_count}}</h3>
+                        <h3>{{ staff_count }}</h3>
                         <h6>Staff</h6>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                         <i class="fas fa-graduation-cap"></i>
                     </div>
                     <div class="db-info">
-                        <h3>{{program_count}}</h3>
+                        <h3>{{ program_count }}</h3>
                         <h6>Programs</h6>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         <i class="fas fa-book"></i>
                     </div>
                     <div class="db-info">
-                        <h3>{{course_count}}</h3>
+                        <h3>{{ course_count }}</h3>
                         <h6>Courses</h6>
                     </div>
                 </div>
@@ -85,6 +85,32 @@
             <div class="card-body">
                 <div id="all_details"></div>
             </div>
+            <!-- Donut Chart for Students, Staff, Programs, Courses -->
+            <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+            <script>
+                var donutData = [{{ student_count }}, {{ staff_count }}, {{ course_count }}, {{ program_count }}];
+                var donutOptions = {
+                    series: donutData,
+                    chart: {
+                        width: 380,
+                        type: 'donut',
+                    },
+                    labels: ['Students', 'Staff', 'Courses', 'Programs'],
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                };
+                var donutChart = new ApexCharts(document.querySelector("#all_details"), donutOptions);
+                donutChart.render();
+            </script>
         </div>
     </div>
     <div class="col-md-12 col-lg-6">
@@ -98,9 +124,73 @@
             </div>
             <div class="card-body">
                 <div id="student_gender"></div>
+
             </div>
+            <!-- Bar Chart for Number of Students -->
+            <script>
+                var barData = {
+                    series: [{
+                        name: "Boys",
+                        data: [{{ student_gender_male }}],
+                    }, {
+                        name: "Girls",
+                        data: [{{ student_gender_female }}],
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 350,
+                        width: '100%',
+                        stacked: true,
+                        toolbar: {
+                            show: false
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        bar: {
+                            columnWidth: '45%',
+                        }
+                    },
+                    xaxis: {
+                        labels: {
+                            show: false
+                        },
+                        axisBorder: {
+                            show: false
+                        },
+                        axisTicks: {
+                            show: false
+                        },
+                    },
+                    yaxis: {
+                        axisBorder: {
+                            show: false
+                        },
+                        axisTicks: {
+                            show: false
+                        },
+                        labels: {
+                            style: {
+                                colors: '#777'
+                            }
+                        }
+                    },
+                    title: {
+                        text: '',
+                        align: 'left',
+                        style: {
+                            fontSize: '18px'
+                        }
+                    }
+                };
+                var barChart = new ApexCharts(document.querySelector('#student_gender'), barData);
+                barChart.render();
+            </script>
         </div>
     </div>
+
     <div class="col-md-12 col-lg-6">
         <div class="card card-chart">
             <div class="card-header">
@@ -110,18 +200,141 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-6">
-                <div class="card card-chart">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                <h3 class="card-title">Programs & Courses</h3>
-                            </div>
-                        </div>
-                </div>
             <div class="card-body">
                 <div id="student_staff"></div>
             </div>
+            <!-- Donut Chart for Student & Staff -->
+            <script>
+                var studentStaffData = [{{ student_count }}, {{ staff_count }}];
+                var studentStaffOptions = {
+                    series: studentStaffData,
+                    chart: {
+                        width: 380,
+                        type: 'donut',
+                    },
+                    labels: ['Students', 'Staff'],
+                    plotOptions: {
+                        pie: {
+                            startAngle: -90,
+                            endAngle: 270
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    fill: {
+                        type: 'gradient',
+                    },
+                    legend: {
+                        formatter: function(val, opts) {
+                            return val + " - " + opts.w.globals.series[opts.seriesIndex]
+                        }
+                    },
+                    title: {
+                        text: 'Gradient Donut with custom Start-angle'
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }]
+                };
+                var studentStaffChart = new ApexCharts(document.querySelector("#student_staff"), studentStaffOptions);
+                studentStaffChart.render();
+            </script>
+        </div>
+    </div>
+    
+    <div class="col-md-12 col-lg-6">
+        <div class="card card-chart">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h3 class="card-title">Programs & Courses</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="programs_courses_chart"></div>
+            </div>
+            <!-- Add content for Programs & Courses chart here --><!-- Add content for Programs & Courses chart here -->
+<script>
+    // Data for the bar chart (Count of Programs and Courses)
+    var programsCoursesData = {
+        series: [{
+            name: "Programs",
+            data: [{{ program_count }}],
+        }, {
+            name: "Courses",
+            data: [{{ course_count }}],
+        }],
+        chart: {
+            type: 'bar',
+            height: 350,
+            width: '100%',
+            stacked: true,
+            toolbar: {
+                show: false
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        plotOptions: {
+            bar: {
+                columnWidth: '45%',
+            }
+        },
+        xaxis: {
+            labels: {
+                show: false
+            },
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false
+            },
+            categories: ['Count'],
+        },
+        yaxis: {
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false
+            },
+            labels: {
+                style: {
+                    colors: '#777'
+                }
+            },
+            title: {
+                text: 'Count',
+                style: {
+                    fontSize: '18px'
+                }
+            }
+        },
+        title: {
+            text: 'Programs & Courses Count',
+            align: 'left',
+            style: {
+                fontSize: '18px'
+            }
+        }
+    };
+
+    var programsCoursesChart = new ApexCharts(document.querySelector('#programs_courses_chart'), programsCoursesData);
+    programsCoursesChart.render();
+</script>
+
         </div>
     </div>
 </div>
@@ -144,61 +357,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-nowrap">
-                                    <div>PRE2209</div>
-                                </td>
-                                <td class="text-nowrap">John Smith</td>
-                                <td class="text-center">1185</td>
-                                <td class="text-center">98%</td>
-                                <td class="text-right">
-                                    <div>2019</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">
-                                    <div>PRE1245</div>
-                                </td>
-                                <td class="text-nowrap">Jolie Hoskins</td>
-                                <td class="text-center">1195</td>
-                                <td class="text-center">99.5%</td>
-                                <td class="text-right">
-                                    <div>2018</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">
-                                    <div>PRE1625</div>
-                                </td>
-                                <td class="text-nowrap">Pennington Joy</td>
-                                <td class="text-center">1196</td>
-                                <td class="text-center">99.6%</td>
-                                <td class="text-right">
-                                    <div>2017</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">
-                                    <div>PRE2516</div>
-                                </td>
-                                <td class="text-nowrap">Millie Marsden</td>
-                                <td class="text-center">1187</td>
-                                <td class="text-center">98.2%</td>
-                                <td class="text-right">
-                                    <div>2016</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-nowrap">
-                                    <div>PRE2209</div>
-                                </td>
-                                <td class="text-nowrap">John Smith</td>
-                                <td class="text-center">1185</td>
-                                <td class="text-center">98%</td>
-                                <td class="text-right">
-                                    <div>2015</div>
-                                </td>
-                            </tr>
+                            <!-- Add data for Star Students table here -->
                         </tbody>
                     </table>
                 </div>
@@ -212,26 +371,7 @@
             </div>
             <div class="card-body">
                 <ul class="activity-feed">
-                    <li class="feed-item">
-                        <div class="feed-date">Apr 13</div>
-                        <span class="feed-text"><a>John Doe</a> won 1st place in <a>"Chess"</a></span>
-                    </li>
-                    <li class="feed-item">
-                        <div class="feed-date">Mar 21</div>
-                        <span class="feed-text"><a>Justin Lee</a> participated in <a href="invoice.html">"Carrom"</a></span>
-                    </li>
-                    <li class="feed-item">
-                        <div class="feed-date">Feb 2</div>
-                        <span class="feed-text"><a>Justin Lee</a> attended international conference in <a href="profile.html">"St.John School"</a></span>
-                    </li>
-                    <li class="feed-item">
-                        <div class="feed-date">Apr 13</div>
-                        <span class="feed-text"><a>John Doe</a> won 1st place in <a>"Chess"</a></span>
-                    </li>
-                    <li class="feed-item">
-                        <div class="feed-date">Mar 21</div>
-                        <span class="feed-text"><a>Justin Lee</a> participated in <a href="invoice.html">"Carrom"</a></span>
-                    </li>
+                    <!-- Add content for Student Activity feed here -->
                 </ul>
             </div>
         </div>
@@ -269,5 +409,5 @@
 </div>
 </div>
 </div>
-{% include 'includes/chart.html' %}
+<!-- Include your JavaScript code or external scripts here -->
 {% endblock %}
