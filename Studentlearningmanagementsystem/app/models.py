@@ -80,3 +80,16 @@ class Course(models.Model):
     
     def __str__(self):
         return self.course_code
+    
+class Staff_Notifications(models.Model):
+    staff_id = models.ForeignKey(Staff, on_delete = models.CASCADE)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        db_table = 'staff_notification_table'
+
+    def __str__(self):
+        return self.staff_id.admin.first_name
+
+# 
