@@ -477,3 +477,5 @@ def DELETE_SESSION(request, id):
     messages.success(request, 'Session is Successfully Purged from the database!')
     return redirect('view_session')
 
+def STAFF_SEND_NOTIFICATIONS(request):
+    return render(request, 'Hod/staff_notifications.html')
