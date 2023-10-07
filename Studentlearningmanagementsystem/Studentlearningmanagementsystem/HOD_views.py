@@ -13,7 +13,7 @@ def HOME(request):
 
     student_gender_male = Student.objects.filter(gender = "Male").count()
     student_gender_female = Student.objects.filter(gender = "Female").count()
-
+   
     context = {
         'student_count': student_count,
         'staff_count': staff_count,

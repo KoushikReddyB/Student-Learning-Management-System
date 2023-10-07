@@ -128,52 +128,26 @@
             </div>
             <!-- Bar Chart for Number of Students -->
             <script>
-                var barData = {
-                    series: [{
-                        name: "Boys",
-                        data: [{{ student_gender_male }}],
-                    }, {
-                        name: "Girls",
-                        data: [{{ student_gender_female }}],
-                    }],
+                var pieData = {
+                    series: [{{ student_gender_male }}, {{ student_gender_female }}],
                     chart: {
-                        type: 'bar',
-                        height: 350,
-                        width: '100%',
-                        stacked: true,
+                        type: 'pie', // Changed to 'pie' for a pie chart
+                        height: 300,
+                        width: '65%',
                         toolbar: {
                             show: false
                         },
                     },
+                    labels: ["Boys", "Girls"], // Added labels for the pie chart sections
                     dataLabels: {
                         enabled: false
                     },
                     plotOptions: {
-                        bar: {
-                            columnWidth: '45%',
-                        }
-                    },
-                    xaxis: {
-                        labels: {
-                            show: false
-                        },
-                        axisBorder: {
-                            show: false
-                        },
-                        axisTicks: {
-                            show: false
-                        },
-                    },
-                    yaxis: {
-                        axisBorder: {
-                            show: false
-                        },
-                        axisTicks: {
-                            show: false
-                        },
-                        labels: {
-                            style: {
-                                colors: '#777'
+                        pie: {
+                            donut: {
+                                labels: {
+                                    show: false
+                                }
                             }
                         }
                     },
@@ -185,8 +159,11 @@
                         }
                     }
                 };
-                var barChart = new ApexCharts(document.querySelector('#student_gender'), barData);
-                barChart.render();
+                
+                var pieChart = new ApexCharts(document.querySelector('#student_gender'), pieData);
+                pieChart.render();
+                
+                
             </script>
         </div>
     </div>
