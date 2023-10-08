@@ -53,6 +53,10 @@ urlpatterns = [
     path('HOD/Staff/Save_Notification', HOD_views.STAFF_SAVE_NOTIFICATIONS, name = 'staff_save_notifications'),
     # THIS IS FOR STAFF URLS
     path('Staff/home', Staff_views.HOME, name = 'Staff_home'),
+    ####
     path('Staff/Notifications', Staff_views.NOTIFICATIONS, name = 'Staff_notifications'),
     path('Staff/Mark_as_done/<str:status>', Staff_views.STAFF_NOTIFICATION_MARK_AS_DONE, name='staff_notification_mark_as_mark'),
+    ####
+    path('Staff/Apply_Leave', Staff_views.STAFF_APPLY_LEAVE, name = 'Staff_apply_leave'),
+    # path('Staff/Notifications', Staff_views.NOTIFICATIONS, name = 'Staff_notifications'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

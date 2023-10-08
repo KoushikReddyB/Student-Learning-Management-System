@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+   <div class="page-header">
+      <div class="row align-items-center">
+         <div class="col">
+            <h3 class="page-title">Apply for Leave</h3>
+            <ul class="breadcrumb">
+               <li class="breadcrumb-item"><a href="{% url 'Staff_home' %}">Dashboard</a></li>
+               <li class="breadcrumb-item active">Apply for Leave</li>
+            </ul>
+         </div>
+         {% include 'includes/messages.html' %}
+         <div class="col-auto text-right float-right ml-auto">
+            <button class="btn btn-danger mr-2" data-toggle="modal" data-target=".bd-example-modal-lg">
+               <i class="fas fa-history"></i> Leave Apply History
+            </button>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="card">
+            <div class="card-body">
+               <form method="post" action="{% url 'update_program' %}">
+                  {% csrf_token %}
+                  <div class="col-12">
+                     <h5 class="form-title"><span>Apply for Leave</span></h5>
+                  </div>
+                  {% include 'includes/messages.html' %}
+                  <div class="col-sm-11">
+                     <div class="form-group">
+                        <label>Leave Date</label>
+                        <input type="date" class="form-control" name="date" value="{{program.name}}" required>
+                        <input type="text" class="form-control" name="program_id" value="{{program.id}} " hidden >
+                     </div>
+                  </div>
+                  <div class="col-sm-11">
+                     <div class="form-group">
+                        <label>Message</label>
+                        <textarea class="form-control" name="message" placeholder="Message here" required></textarea>
+                     </div>
+                  </div>
+                  <br>
+                  <div class="col-12">
+                     <button type="submit" class="btn btn-primary">Apply Leave</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Leave Apply History</h5>
+      </div>
+      
+    <div class="row">
+       <div class="col-sm-12">
+          <div class="card card-table">
+             <div class="card-body">
+                <div class="table-responsive">
+                   <table id='table_id' class="table table-hover table-center mb-0">
+                      <thead>
+                         <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th class="text-right">Action</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in program %}
+                         <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.created_at}}</td>
+                            <td>{{i.updated_at}}</td>
+                            <td class="text-right">
+                               <div class="actions">
+                                  <a href="{% url 'edit_program' i.id %}" class="btn btn-sm bg-success-light mr-2">
+                                  <i class="fas fa-pen"></i>
+                                  </a>
+                                  <a href="{% url 'delete_program' i.id %}" class="btn btn-sm bg-danger-light">
+                                  <i class="fas fa-trash"></i>
+                                  </a>
+                               </div>
+                            </td>
+                         </tr>
+                         {% endfor %}
+                      </tbody>
+                   </table>
+                </div>
+             </div>
+          </div>
+       </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

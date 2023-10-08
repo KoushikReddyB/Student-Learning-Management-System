@@ -500,3 +500,4 @@ def STAFF_SAVE_NOTIFICATIONS(request):
         messages.success(request, "Notification is sent successfully ")
         return redirect('staff_send_notifications')
     return render(request, 'Hod/staff_notifications.html')
+
