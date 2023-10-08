@@ -478,4 +478,9 @@ def DELETE_SESSION(request, id):
     return redirect('view_session')
 
 def STAFF_SEND_NOTIFICATIONS(request):
-    return render(request, 'Hod/staff_notifications.html')
+    staff = Staff.objects.all()
+
+    context = {
+        'staff' : staff,
+    }
+    return render(request, 'Hod/staff_notifications.html', context)
