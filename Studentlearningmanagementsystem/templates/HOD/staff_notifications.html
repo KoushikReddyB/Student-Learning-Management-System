@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% include 'includes/messages.html' %}
 <div class="content container-fluid">
     <div class="page-header">
        <div class="row align-items-center">
@@ -77,7 +77,34 @@
           </button>
         </div>
         <div class="modal-body">
-          ....
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="card card-table">
+                  <div class="card-body">
+                     <div class="table-responsive">
+                       <table id='table_id' class="table table-hover table-center mb-0">
+                          <thead>
+                              <tr>
+                                  <th>Message</th>
+                                  <th class="text-right">Status</th>
+                                  <th class="text-right">Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for i in staff %}
+                              <tr>
+                                  <td>Message here</td>
+                                  <td>{{i.admin.email}}</td>
+                                 
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -87,8 +114,8 @@
     </div>
   </div>
 
-  <!-- View Staff  notifications Modal-->
-  {% for i in staff %}
+<!-- View Staff notifications Modal -->
+{% for i in staff %}
 <div class="modal fade" id="sendnotification-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content">
@@ -99,12 +126,14 @@
          </button>
        </div>
        <div class="modal-body">
-         <form>
+         <form method="post" action="{% url 'staff_save_notifications' %}">
+            {% csrf_token %}
             <div class="form-group">
-
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              <input class="form-control" placeholder="Write your message here" name="message">
+              <input type="hidden" name="staff_id" value="{{i.admin.id}}">
             </div>
-            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-paper-plane"></i> Send Notification</button>
+            <!-- Change the button type to "submit" -->
+            <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-paper-plane"></i> Send Notification</button>
           </form>
        </div>
        <div class="modal-footer">
@@ -113,5 +142,5 @@
      </div>
    </div>
  </div>
- {% endfor %}
+{% endfor %}
 {% endblock %}

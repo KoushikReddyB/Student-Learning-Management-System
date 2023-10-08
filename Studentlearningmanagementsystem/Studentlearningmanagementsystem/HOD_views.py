@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import CustomUser
+from app.models import CustomUser, Staff_Notifications
 from app.models import Program, Session_Year, Student, Staff, Course
 from django.contrib import messages
 
@@ -484,3 +484,18 @@ def STAFF_SEND_NOTIFICATIONS(request):
         'staff' : staff,
     }
     return render(request, 'Hod/staff_notifications.html', context)
+
+def STAFF_SAVE_NOTIFICATIONS(request):
+    if request.method == 'POST':
+        staff_id = request.POST.get('staff_id')
+        message = request.POST.get('message')
+
+        staff = Staff.objects.get(admin = staff_id)
+        notifications = Staff_Notifications (
+            staff_id = staff,
+            message = message,
+        )
+        notifications.save()
+        messages.success(request, "Notification is sent successfully ")
+        return redirect('staff_send_notifications')
+    return render(request, 'Hod/staff_notifications.html')
