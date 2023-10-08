@@ -11,7 +11,6 @@
                <li class="breadcrumb-item active">Apply for Leave</li>
             </ul>
          </div>
-         {% include 'includes/messages.html' %}
          <div class="col-auto text-right float-right ml-auto">
             <button class="btn btn-info mr-2" data-toggle="modal" data-target="#leaveHistoryModal">
                <i class="fas fa-history"></i> Leave Apply History
@@ -19,6 +18,8 @@
          </div>
       </div>
    </div>
+                  
+   {% include 'includes/messages.html' %}
    <div class="row">
       <div class="col-sm-12">
          <div class="card">
@@ -28,7 +29,6 @@
                   <div class="col-12">
                      <h5 class="form-title"><span>Apply for Leave</span></h5>
                   </div>
-                  {% include 'includes/messages.html' %}
                   <div class="col-sm-11">
                      <div class="form-group">
                         <label>Leave Date</label>
@@ -69,8 +69,8 @@
                       <thead>
                          <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Created At</th>
+                            <th>Date</th>
+                            <th>Message At</th>
                             <th>Updated At</th>
                             <th class="text-right">Action</th>
                          </tr>
