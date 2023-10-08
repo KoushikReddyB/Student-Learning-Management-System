@@ -18,3 +18,12 @@ def NOTIFICATIONS(request):
                'notification': notification,
           }
      return render(request, 'Staff/notifications.html', context)
+
+def STAFF_NOTIFICATION_MARK_AS_DONE(request, status):
+    notification = Staff_Notifications.objects.get(id=status)
+
+    if notification.status == 0:
+        notification.status = 1
+        
+        notification.save()
+    return redirect('Staff_notifications')
