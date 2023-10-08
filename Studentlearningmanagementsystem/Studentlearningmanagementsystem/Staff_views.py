@@ -1,6 +1,7 @@
+from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import CustomUser
+from app.models import CustomUser, Staff_Leave
 from app.models import Program, Session_Year, Student, Staff, Course, Staff_Notifications
 from django.contrib import messages
 
@@ -29,5 +30,29 @@ def STAFF_NOTIFICATION_MARK_AS_DONE(request, status):
     return redirect('Staff_notifications')
 
 def STAFF_APPLY_LEAVE(request):
-    
-    return render(request, 'Hod/staff_apply_leave.html')
+    leaves = Staff_Leave.objects.filter(staff_id__admin=request.user.id)
+
+    context = {
+        'leaves': leaves,
+    }
+
+    return render(request, 'Staff/staff_apply_leave.html', context)
+
+
+def STAFF_APPLY_LEAVE_SAVE(request):
+    if request.method == "POST":
+        date = request.POST.get('date')
+        message = request.POST.get('message')
+
+        staff = Staff.objects.get(admin=request.user.id)
+
+        leave = Staff_Leave(
+            staff_id=staff,
+            date=date,
+            message=message,
+        )
+
+        leave.save()
+        messages.success(request, "You Sent a request to apply for leave")
+        return render(request, 'Staff/staff_apply_leave.html')
+    return HttpResponse("Invalid Request")

@@ -13,9 +13,9 @@
          </div>
          {% include 'includes/messages.html' %}
          <div class="col-auto text-right float-right ml-auto">
-            <button class="btn btn-danger mr-2" data-toggle="modal" data-target=".bd-example-modal-lg">
+            <button class="btn btn-info mr-2" data-toggle="modal" data-target="#leaveHistoryModal">
                <i class="fas fa-history"></i> Leave Apply History
-            </button>
+           </button>           
          </div>
       </div>
    </div>
@@ -23,7 +23,7 @@
       <div class="col-sm-12">
          <div class="card">
             <div class="card-body">
-               <form method="post" action="{% url 'update_program' %}">
+               <form method="post" action="{% url 'Staff_apply_leave_save' %}">
                   {% csrf_token %}
                   <div class="col-12">
                      <h5 class="form-title"><span>Apply for Leave</span></h5>
@@ -32,8 +32,7 @@
                   <div class="col-sm-11">
                      <div class="form-group">
                         <label>Leave Date</label>
-                        <input type="date" class="form-control" name="date" value="{{program.name}}" required>
-                        <input type="text" class="form-control" name="program_id" value="{{program.id}} " hidden >
+                        <input type="date" class="form-control" name="date" required>
                      </div>
                   </div>
                   <div class="col-sm-11">
@@ -77,24 +76,13 @@
                          </tr>
                       </thead>
                       <tbody>
-                        {% for i in program %}
-                         <tr>
-                            <td>{{i.id}}</td>
-                            <td>{{i.name}}</td>
-                            <td>{{i.created_at}}</td>
-                            <td>{{i.updated_at}}</td>
-                            <td class="text-right">
-                               <div class="actions">
-                                  <a href="{% url 'edit_program' i.id %}" class="btn btn-sm bg-success-light mr-2">
-                                  <i class="fas fa-pen"></i>
-                                  </a>
-                                  <a href="{% url 'delete_program' i.id %}" class="btn btn-sm bg-danger-light">
-                                  <i class="fas fa-trash"></i>
-                                  </a>
-                               </div>
-                            </td>
-                         </tr>
-                         {% endfor %}
+                        {% for i in leave %}
+                                <tr>
+                                    <td>{{ i.id }}</td>
+                                    <td>{{ i.date }}</td>
+                                    <td>{{ i.message }}</td>
+                                </tr>
+                                {% endfor %}
                       </tbody>
                    </table>
                 </div>
