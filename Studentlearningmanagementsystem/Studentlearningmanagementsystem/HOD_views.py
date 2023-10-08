@@ -479,9 +479,10 @@ def DELETE_SESSION(request, id):
 
 def STAFF_SEND_NOTIFICATIONS(request):
     staff = Staff.objects.all()
-
+    see_notifications = Staff_Notifications.objects.all().order_by('-id')[0:5]
     context = {
         'staff' : staff,
+        'see_notifications': see_notifications,
     }
     return render(request, 'Hod/staff_notifications.html', context)
 

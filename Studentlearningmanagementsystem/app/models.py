@@ -84,6 +84,7 @@ class Course(models.Model):
 class Staff_Notifications(models.Model):
     staff_id = models.ForeignKey(Staff, on_delete = models.CASCADE)
     message = models.TextField()
+    status = models.IntegerField(null=True, default=0)
     created_at = models.DateTimeField(auto_now_add = True)
 
     class Meta:

@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-{% include 'includes/messages.html' %}
 <div class="content container-fluid">
     <div class="page-header">
        <div class="row align-items-center">
@@ -85,17 +84,21 @@
                        <table id='table_id' class="table table-hover table-center mb-0">
                           <thead>
                               <tr>
-                                  <th>Message</th>
-                                  <th class="text-right">Status</th>
-                                  <th class="text-right">Action</th>
+                                  <th style="width:60%">Message</th>
+                                  <th style="width:30%" class="text-right">Status</th>
                               </tr>
                           </thead>
                           <tbody>
-                              {% for i in staff %}
+                              {% for i in see_notifications %}
                               <tr>
-                                  <td>Message here</td>
-                                  <td>{{i.admin.email}}</td>
-                                 
+                                  <td>{{i.message}}</td>
+
+                                  {% if i.status == 0 %}
+                                  <td><span class="badge badge-danger">Not Seen the message</span></td>
+                                 {% else %}
+                                 <td><span class="badge badge-success">Seen the message</span></td>
+                                 {% endif %}
+
                               </tr>
                               {% endfor %}
                           </tbody>
@@ -115,6 +118,7 @@
   </div>
 
 <!-- View Staff notifications Modal -->
+{% include 'includes/messages.html' %}
 {% for i in staff %}
 <div class="modal fade" id="sendnotification-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
