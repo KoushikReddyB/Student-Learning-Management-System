@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import CustomUser, Staff_Notifications
+from app.models import CustomUser, Staff_Leave, Staff_Notifications
 from app.models import Program, Session_Year, Student, Staff, Course
 from django.contrib import messages
 
@@ -503,4 +503,9 @@ def STAFF_SAVE_NOTIFICATIONS(request):
 
 
 def STAFF_LEAVE_VIEW(request):
-    return render(request, 'Hod/staff_leave.html')
+    staff_leave = Staff_Leave.objects.all()
+
+    context = {
+        "staff_leave": staff_leave,
+    }
+    return render(request, 'Hod/staff_leave.html', context)

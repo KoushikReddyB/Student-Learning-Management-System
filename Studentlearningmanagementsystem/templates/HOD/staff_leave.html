@@ -5,10 +5,10 @@
     <div class="page-header">
        <div class="row align-items-center">
           <div class="col">
-             <h3 class="page-title">Programs</h3>
+             <h3 class="page-title">Staff Leave Request</h3>
              <ul class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'HOD_home' %}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Programs</li>
+                <li class="breadcrumb-item active">Staff Leave Request</li>
              </ul>
           </div>
           {% include 'includes/messages.html' %}
@@ -26,28 +26,33 @@
                    <table id='table_id' class="table table-hover table-center mb-0">
                       <thead>
                          <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th class="text-right">Action</th>
+                            <th>Username</th>
+                            <th>Staff Name</th>
+                            <th>Leave Date</th>
+                            <th>Reason for Leave</th>
+                            <th class="text-center">Action</th>
                          </tr>
                       </thead>
                       <tbody>
-                        {% for i in program %}
+                        {% for i in staff_leave %}
                          <tr>
-                            <td>{{i.id}}</td>
-                            <td>{{i.name}}</td>
-                            <td>{{i.created_at}}</td>
-                            <td>{{i.updated_at}}</td>
-                            <td class="text-right">
+                            <td>{{i.staff_id.admin.username}}</td>
+                            <td>{{i.staff_id.admin.first_name}}&nbsp;{{i.staff_id.admin.last_name}}</td>
+                            <td>{{i.date}}</td>
+                            <td>{{i.message}}</td>
+                            <td class="text-center">
                                <div class="actions">
-                                  <a href="{% url 'edit_program' i.id %}" class="btn btn-sm bg-success-light mr-2">
-                                  <i class="fas fa-pen"></i>
-                                  </a>
-                                  <a href="{% url 'delete_program' i.id %}" class="btn btn-sm bg-danger-light">
-                                  <i class="fas fa-trash"></i>
-                                  </a>
+
+                                 {% if i.status == 0 %}
+                                 <a herf="#" class="btn btn-success btn-sm"><i class="fa fa-check"></i>
+                                    Approve</a>
+                                    <a herf="#" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Disapprove</a>
+                                 {% elif i.status == 1 %}
+                                 <button class="btn btn-success btn-sm" disabled="disabled"><i class="fa fa-check"></i> Approved</button>
+                                 {% else %}
+                                 <button class="btn btn-danger btn-sm" disabled="disabled"><i class="fa fa-ban"></i> Dispproved</button>
+                                 {% endif %}
+
                                </div>
                             </td>
                          </tr>

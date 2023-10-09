@@ -105,5 +105,5 @@ class Staff_Leave(models.Model):
         db_table = 'staff_leave_table'
 
     def __str__(self):
-        return self.staff_id.admin.first_name + self.staff_id.admin.last_name
+        return str(self.staff_id.admin.first_name + self.staff_id.admin.last_name)
     
