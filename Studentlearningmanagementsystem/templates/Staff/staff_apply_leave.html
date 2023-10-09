@@ -12,7 +12,7 @@
             </ul>
          </div>
          <div class="col-auto text-right float-right ml-auto">
-            <button class="btn btn-info mr-2" data-toggle="modal" data-target="#leaveHistoryModal">
+            <button class="btn btn-info mr-2" data-toggle="modal" data-target=".bd-example-modal-lg">
                <i class="fas fa-history"></i> Leave Apply History
            </button>           
          </div>
@@ -63,29 +63,41 @@
     <div class="row">
        <div class="col-sm-12">
           <div class="card card-table">
-             <div class="card-body">
-                <div class="table-responsive">
+             <div class="card-body">{% if staff_leave_history %}
+               <div class="table-responsive">
                    <table id='table_id' class="table table-hover table-center mb-0">
-                      <thead>
-                         <tr>
-                            <th>ID</th>
-                            <th>Date</th>
-                            <th>Message At</th>
-                            <th>Updated At</th>
-                            <th class="text-right">Action</th>
-                         </tr>
-                      </thead>
-                      <tbody>
-                        {% for i in leave %}
-                                <tr>
-                                    <td>{{ i.id }}</td>
-                                    <td>{{ i.date }}</td>
-                                    <td>{{ i.message }}</td>
-                                </tr>
-                                {% endfor %}
-                      </tbody>
+                       <thead>
+                           <tr>
+                               <th class="text-center">Date</th>
+                               <th class="text-center">Message</th>
+                               <th class="text-center">Status</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           {% for i in staff_leave_history %}
+                               <tr>
+                                   <td>{{ i.date }}</td>
+                                   <td>{{ i.message }}</td>
+                                   <td class="text-center">
+                                       <div class="actions">
+                                           {% if i.status == 0 %}
+                                               <button class="badge badge-info" disabled="disabled"><i class="fas fa-hourglass"></i> Request pending</button>
+                                           {% elif i.status == 1 %}
+                                               <button class="badge badge-success" disabled="disabled"><i class="fa fa-check"></i> Approved</button>
+                                               {% else %}
+                                               <button class="badge badge-danger" disabled="disabled">Denied <i class="fa fa-ban"></i></button>
+                                           {% endif %}
+                                       </div>
+                                   </td>
+                               </tr>
+                           {% endfor %}
+                       </tbody>
                    </table>
-                </div>
+               </div>
+           {% else %}
+               <p>No leave history available.</p>
+           {% endif %}
+           
              </div>
           </div>
        </div>

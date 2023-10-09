@@ -30,11 +30,15 @@ def STAFF_NOTIFICATION_MARK_AS_DONE(request, status):
     return redirect('Staff_notifications')
 
 def STAFF_APPLY_LEAVE(request):
-    leaves = Staff_Leave.objects.filter(staff_id__admin=request.user.id)
+    staff = Staff.objects.filter(admin = request.user.id)
+    for i in staff:
+        # print(i.id)
+        staff_leave_history = Staff_Leave.objects.filter(staff_id=i.id)
 
-    context = {
-        'leaves': leaves,
-    }
+        context = {
+            'staff_leave_history': staff_leave_history,
+
+        }
 
     return render(request, 'Staff/staff_apply_leave.html', context)
 
