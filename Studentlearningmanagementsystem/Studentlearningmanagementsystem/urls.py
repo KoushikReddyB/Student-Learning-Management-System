@@ -53,7 +53,8 @@ urlpatterns = [
     path('HOD/Staff/Save_Notification', HOD_views.STAFF_SAVE_NOTIFICATIONS, name = 'staff_save_notifications'),
     ####
     path('HOD/Staff/Leave_View', HOD_views.STAFF_LEAVE_VIEW, name = 'staff_leave_view'),
-
+    path('HOD/Staff/Approve_Leave/<str:id>', HOD_views.STAFF_APPROVE_LEAVE, name = 'staff_approve_leave'),
+    path('HOD/Staff/Dispprove_Leave/<str:id>', HOD_views.STAFF_DISAPPROVE_LEAVE, name = 'staff_disapprove_leave'),
 
     # THIS IS FOR STAFF URLS
     path('Staff/home', Staff_views.HOME, name = 'Staff_home'),

@@ -44,13 +44,13 @@
                                <div class="actions">
 
                                  {% if i.status == 0 %}
-                                 <a herf="#" class="btn btn-success btn-sm"><i class="fa fa-check"></i>
+                                 <a href="{% url 'staff_approve_leave' i.id %}" class="btn btn-success btn-sm"><i class="fa fa-check"></i>
                                     Approve</a>
-                                    <a herf="#" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Disapprove</a>
+                                    <a href="{% url 'staff_disapprove_leave' i.id %}" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Deny</a>
                                  {% elif i.status == 1 %}
                                  <button class="btn btn-success btn-sm" disabled="disabled"><i class="fa fa-check"></i> Approved</button>
                                  {% else %}
-                                 <button class="btn btn-danger btn-sm" disabled="disabled"><i class="fa fa-ban"></i> Dispproved</button>
+                                 <button class="btn btn-danger btn-sm" disabled="disabled"><i class="fa fa-ban"></i> Denied</button>
                                  {% endif %}
 
                                </div>

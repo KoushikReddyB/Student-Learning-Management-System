@@ -477,6 +477,7 @@ def DELETE_SESSION(request, id):
     messages.success(request, 'Session is Successfully Purged from the database!')
     return redirect('view_session')
 
+@login_required(login_url='/')
 def STAFF_SEND_NOTIFICATIONS(request):
     staff = Staff.objects.all()
     see_notifications = Staff_Notifications.objects.all().order_by('-id')[0:5]
@@ -486,6 +487,7 @@ def STAFF_SEND_NOTIFICATIONS(request):
     }
     return render(request, 'Hod/staff_notifications.html', context)
 
+@login_required(login_url='/')
 def STAFF_SAVE_NOTIFICATIONS(request):
     if request.method == 'POST':
         staff_id = request.POST.get('staff_id')
@@ -502,6 +504,7 @@ def STAFF_SAVE_NOTIFICATIONS(request):
     return render(request, 'Hod/staff_notifications.html')
 
 
+@login_required(login_url='/')
 def STAFF_LEAVE_VIEW(request):
     staff_leave = Staff_Leave.objects.all()
 
@@ -509,3 +512,17 @@ def STAFF_LEAVE_VIEW(request):
         "staff_leave": staff_leave,
     }
     return render(request, 'Hod/staff_leave.html', context)
+
+@login_required(login_url='/')
+def STAFF_APPROVE_LEAVE(request, id):
+    leave = Staff_Leave.objects.get(id = id)
+    leave.status = 1
+    leave.save()
+    return redirect('staff_leave_view')
+
+@login_required(login_url='/')
+def STAFF_DISAPPROVE_LEAVE(request, id):
+    leave = Staff_Leave.objects.get(id = id)
+    leave.status = 2
+    leave.save()
+    return redirect('staff_leave_view')
