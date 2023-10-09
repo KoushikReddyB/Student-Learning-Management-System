@@ -501,3 +501,6 @@ def STAFF_SAVE_NOTIFICATIONS(request):
         return redirect('staff_send_notifications')
     return render(request, 'Hod/staff_notifications.html')
 
+
+def STAFF_LEAVE_VIEW(request):
+    return render(request, 'Hod/staff_leave.html')

@@ -51,6 +51,10 @@ urlpatterns = [
     ####
     path('HOD/Staff/Send_Notification', HOD_views.STAFF_SEND_NOTIFICATIONS, name = 'staff_send_notifications'),
     path('HOD/Staff/Save_Notification', HOD_views.STAFF_SAVE_NOTIFICATIONS, name = 'staff_save_notifications'),
+    ####
+    path('HOD/Staff/Leave_View', HOD_views.STAFF_LEAVE_VIEW, name = 'staff_leave_view'),
+
+
     # THIS IS FOR STAFF URLS
     path('Staff/home', Staff_views.HOME, name = 'Staff_home'),
     ####

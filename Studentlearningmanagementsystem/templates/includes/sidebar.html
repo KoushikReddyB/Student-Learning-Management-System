@@ -48,31 +48,26 @@
                   <li><a href="{% url 'view_session' %}">View Sessions</a></li>
                </ul>
             </li>
-            
-            <li>
+            <li class = {% active_link 'staff_send_notifications' 'active' %}>
                <a href="{% url 'staff_send_notifications' %}"><i class="fa fa-bell"></i> <span>Send Staff Notification</span></a>
-            </li>
-            <li>
-            <li>
-               <a href="#"><i class="fa fa-bell"></i> <span>Send Student Notification</span></a>
-            </li>
-            <li>
-            <li>
-               <a href="#"><i class="fa fa-clock"></i> <span>View Attendance</span></a>
-            </li>
-            <li>
+           </li>
+           
+           <li class = {% active_link 'staff_send_notifications' 'active' %}>
                <a href="#"><i class="fa fa-comments"></i> <span>Staff Feedback</span></a>
-               <li>
-                  <a href="#"><i class="fa fa-comments"></i> <span>Student Feedback</span></a>
-               </li>
-               <li>
-                  <a href="#}"><i class="fa fa-envelope"></i> <span>Staff Leave</span></a>
-               </li>
-            </li>
-            <li>
+           </li>
+           
+           <li class = {% active_link 'staff_send_notifications' 'active' %}>
+               <a href="#"><i class="fa fa-comments"></i> <span>Student Feedback</span></a>
+           </li>
+           
+           <li class = {% active_link 'staff_send_notifications' 'active' %}>
+               <a href="{% url 'staff_leave_view' %}"><i class="fa fa-envelope"></i> <span>Staff Leave</span></a>
+           </li>
+           
+           <li class = {% active_link 'staff_send_notifications' 'active' %}>
                <a href="#"><i class="fa fa-envelope"></i> <span>Student Leave</span></a>
-            </li>
-            <li>
+           </li>       
+           <li>
                <a href="{% url 'Logout' %}"><i class="fa fa-sign-out-alt"></i> <span>Logout</span></a>
             </li>
           </ul>
