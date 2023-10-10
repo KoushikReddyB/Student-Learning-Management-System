@@ -70,7 +70,17 @@ def STAFF_APPLY_LEAVE_SAVE(request):
 
 @login_required(login_url='/')
 def STAFF_FEEDBACK(request):
-    return render(request, 'Staff/feedback.html')
+    staff = Staff.objects.filter(admin = request.user.id)
+    for i in staff:
+        # print(i.id)
+        staff_feedback_history = Staff_Feedback.objects.filter(staff_id=i.id)
+
+        context = {
+            'staff_feedback_history': staff_feedback_history,
+
+        }
+
+    return render(request, 'Staff/feedback.html', context)
 
 @login_required(login_url='/')
 def STAFF_FEEDBACK_SAVE(request):
