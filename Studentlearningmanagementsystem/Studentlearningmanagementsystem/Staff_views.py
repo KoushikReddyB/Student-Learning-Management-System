@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import CustomUser, Staff_Leave
+from app.models import CustomUser, Staff_Feedback, Staff_Leave
 from app.models import Program, Session_Year, Student, Staff, Course, Staff_Notifications
 from django.contrib import messages
 
@@ -66,3 +66,23 @@ def STAFF_APPLY_LEAVE_SAVE(request):
         messages.success(request, "You Sent a request to apply for leave")
         return render(request, 'Staff/staff_apply_leave.html')
     return HttpResponse("Invalid Request")
+
+
+@login_required(login_url='/')
+def STAFF_FEEDBACK(request):
+    return render(request, 'Staff/feedback.html')
+
+@login_required(login_url='/')
+def STAFF_FEEDBACK_SAVE(request):
+    if request.method == "POST":
+        feedback = request.POST.get('feedback')
+
+        staff = Staff.objects.get(admin = request.user.id)
+        feedback = Staff_Feedback(
+            staff_id = staff,
+            feedback = feedback, 
+            feedback_reply = "",
+        )
+        feedback.save()
+        messages.success(request, "Successfully Sent the Feedback")
+    return redirect('Staff_feedback')
