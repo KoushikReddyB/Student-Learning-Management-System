@@ -27,29 +27,27 @@
                          <tr>
                             <th>Username</th>
                             <th>Staff Name</th>
-                            <th>Leave Date</th>
-                            <th>Reason for Leave</th>
+                            <th>Feedback</th>
                             <th class="text-center">Action</th>
                          </tr>
                       </thead>
                       <tbody>
-                        {% for i in staff_leave %}
+                        {% for i in staff_feedback %}
                          <tr>
                             <td>{{i.staff_id.admin.username}}</td>
                             <td>{{i.staff_id.admin.first_name}}&nbsp;{{i.staff_id.admin.last_name}}</td>
-                            <td>{{i.date}}</td>
-                            <td>{{i.message}}</td>
+                            <td>{{i.feedback}}</td>
                             <td class="text-center">
                                <div class="actions">
 
-                                 {% if i.status == 0 %}
-                                 <a href="{% url 'staff_approve_leave' i.id %}" class="btn btn-success btn-sm"><i class="fa fa-check"></i>
+                                 {% if i.status == "" or i.reply is none %}
+                                 <a href="{% url 'Staff_feedback_reply' i.id %}" class="btn btn-success btn-sm"><i class="fa fa-check"></i>
                                     Reply</a>
-                                    <a href="{% url 'staff_disapprove_leave' i.id %}" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Ignore</a>
-                                 {% elif i.status == 1 %}
-                                 <button class="btn btn-success btn-sm" disabled="disabled"><i class="fa fa-check"></i> Sent Reply</button>
-                                 {% else %}
+                                    <a href="{% url 'Staff_feedback_ignore' i.id %}" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Ignore</a>
+                                 {% elif i.status == "NO_REP" %}
                                  <button class="btn btn-danger btn-sm" disabled="disabled"><i class="fa fa-ban"></i> Ignored</button>
+                                 {% else %}
+                                 <button class="btn btn-success btn-sm" disabled="disabled"><i class="fa fa-check"></i> Sent Reply</button>
                                  {% endif %}
 
                                </div>

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import CustomUser, Staff_Leave, Staff_Notifications
+from app.models import CustomUser, Staff_Feedback, Staff_Leave, Staff_Notifications
 from app.models import Program, Session_Year, Student, Staff, Course
 from django.contrib import messages
 
@@ -513,6 +513,7 @@ def STAFF_LEAVE_VIEW(request):
     }
     return render(request, 'Hod/staff_leave.html', context)
 
+
 @login_required(login_url='/')
 def STAFF_APPROVE_LEAVE(request, id):
     leave = Staff_Leave.objects.get(id = id)
@@ -520,9 +521,30 @@ def STAFF_APPROVE_LEAVE(request, id):
     leave.save()
     return redirect('staff_leave_view')
 
+
 @login_required(login_url='/')
 def STAFF_DISAPPROVE_LEAVE(request, id):
     leave = Staff_Leave.objects.get(id = id)
     leave.status = 2
     leave.save()
     return redirect('staff_leave_view')
+
+
+@login_required(login_url='/')
+def STAFF_FEEDBACK_VIEW(request):
+    staff_feedback = Staff_Feedback.objects.all()
+
+    context = {
+        "staff_feedback": staff_feedback,
+    }
+    return render(request, 'Hod/staff_feedback.html', context)
+
+
+@login_required(login_url='/')
+def STAFF_FEEDBACK_REPLY(request, id):
+     return redirect('staff_feedback_view')
+
+
+@login_required(login_url='/')
+def STAFF_FEEDBACK_IGNORE(request, id):
+     return redirect('staff_feedback_view')
