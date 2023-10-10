@@ -5,9 +5,11 @@ from app.models import CustomUser, Staff_Leave
 from app.models import Program, Session_Year, Student, Staff, Course, Staff_Notifications
 from django.contrib import messages
 
+@login_required(login_url='/')
 def HOME(request):
      return render(request, 'Staff/Staff_home.html')
 
+@login_required(login_url='/')
 def NOTIFICATIONS(request):
      staff = Staff.objects.filter(admin = request.user.id)
      # print(staff)
@@ -20,6 +22,7 @@ def NOTIFICATIONS(request):
           }
      return render(request, 'Staff/notifications.html', context)
 
+@login_required(login_url='/')
 def STAFF_NOTIFICATION_MARK_AS_DONE(request, status):
     notification = Staff_Notifications.objects.get(id=status)
 
@@ -29,6 +32,8 @@ def STAFF_NOTIFICATION_MARK_AS_DONE(request, status):
         notification.save()
     return redirect('Staff_notifications')
 
+
+@login_required(login_url='/')
 def STAFF_APPLY_LEAVE(request):
     staff = Staff.objects.filter(admin = request.user.id)
     for i in staff:
@@ -43,6 +48,7 @@ def STAFF_APPLY_LEAVE(request):
     return render(request, 'Staff/staff_apply_leave.html', context)
 
 
+@login_required(login_url='/')
 def STAFF_APPLY_LEAVE_SAVE(request):
     if request.method == "POST":
         date = request.POST.get('date')

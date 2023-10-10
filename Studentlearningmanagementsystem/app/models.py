@@ -107,3 +107,16 @@ class Staff_Leave(models.Model):
     def __str__(self):
         return str(self.staff_id.admin.first_name + self.staff_id.admin.last_name)
     
+class Staff_Feedback(models.Model):
+    staff_id = models.ForeignKey(Staff, on_delete = models.CASCADE)
+    feedback = models.TextField()
+    feedback_reply = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True) 
+    updated_at = models.DateTimeField(auto_now_add=True) 
+
+    class Meta:
+        db_table = 'staff_feedback_table'
+
+    def __str__(self):
+        return str(self.staff_id.admin.username)
+    
