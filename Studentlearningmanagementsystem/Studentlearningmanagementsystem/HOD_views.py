@@ -533,19 +533,38 @@ def STAFF_DISAPPROVE_LEAVE(request, id):
 @login_required(login_url='/')
 def STAFF_FEEDBACK_VIEW(request):
     staff_feedback = Staff_Feedback.objects.all()
+    staff = Staff.objects.all()
 
     context = {
         "staff_feedback": staff_feedback,
+        'staff': staff,
     }
     return render(request, 'Hod/staff_feedback.html', context)
-
-
+'''
+    
+        feedback = Staff_Feedback(
+            staff_id = staff,
+            feedback = feedback, 
+            feedback_reply = "",
+        )
+        feedback.save()
+        messages.success(request, "Successfully Sent the Feedback")
+        '''
 @login_required(login_url='/')
 def STAFF_FEEDBACK_REPLY(request, id):
-    reply_feedback = Staff_Feedback.objects.get(id = id)
-    reply_feedback.save()
-    return redirect('staff_feedback_view')
+    if request.method == 'POST':
+        staff_id = request.POST.get("staff_id")
+        reply = request.POST.get('reply')
 
+        staff = Staff.objects.get(id = staff_id)
+        reply_feedback = Staff_Feedback(
+            staff_id = staff,
+            feedback_reply = reply,
+        )
+        reply_feedback.save()
+        messages.success(request, 'Reply sent successfully.')
+        return redirect('staff_feedback_view')
+    return redirect('staff_feedback_view')
 
 @login_required(login_url='/')
 def STAFF_FEEDBACK_IGNORE(request, id):
