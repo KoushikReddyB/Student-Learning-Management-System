@@ -26,6 +26,7 @@
                       <thead>
                          <tr>
                             <th>Username</th>
+                            <th class="text-center">Date</th>
                             <th>Staff Name</th>
                             <th>Feedback</th>
                             <th class="text-center">Action</th>
@@ -35,13 +36,14 @@
                         {% for i in staff_feedback %}
                          <tr>
                             <td>{{i.staff_id.admin.username}}</td>
+                            <td>{{i.created_at}}</td>
                             <td>{{i.staff_id.admin.first_name}}&nbsp;{{i.staff_id.admin.last_name}}</td>
                             <td>{{i.feedback}}</td>
                             <td class="text-center">
                                <div class="actions">
 
                                  {% if i.status == "" or i.reply is none %}
-                                 <a href="{% url 'Staff_feedback_reply' i.id %}" class="btn btn-success btn-sm"><i class="fa fa-check"></i>
+                                 <a href="{% url 'Staff_feedback_reply' i.id %}" class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-check"></i>
                                     Reply</a>
                                     <a href="{% url 'Staff_feedback_ignore' i.id %}" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Ignore</a>
                                  {% elif i.status == "NO_REP" %}
@@ -56,12 +58,58 @@
                          {% endfor %}
                       </tbody>
                    </table>
+                   
+<!-- Reply modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLongTitle1">Feedback Reply</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <div class="row">
+           <div class="col-sm-11">
+             <div class="card card-table">
+               <div class="card-body">
+                 {% for i in feedback %}
+                 <div class="col-sm-11">
+                   <div class="form-group">
+                     <label>Feedback Message</label>
+                     <input type="text" class="form-control" name="feedback" value="{{i.feedback}}" required readonly>
+                   </div>
+                 </div>
+                 <div class="col-sm-11">
+                   <div class="form-group">
+                     <label>Feedback Reply</label>
+                     <input type="text" class="form-control" name="reply" required>
+                   </div>
+                 </div>
+                 {% endfor %}
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="modal-footer">
+         <button type="submit" class="btn btn-success" data-dismiss="modal">Save</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
                 </div>
              </div>
           </div>
        </div>
     </div>
  </div>
+
 
 {% endblock  %}
 

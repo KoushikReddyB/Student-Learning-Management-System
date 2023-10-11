@@ -542,7 +542,9 @@ def STAFF_FEEDBACK_VIEW(request):
 
 @login_required(login_url='/')
 def STAFF_FEEDBACK_REPLY(request, id):
-     return redirect('staff_feedback_view')
+    reply_feedback = Staff_Feedback.objects.get(id = id)
+    reply_feedback.save()
+    return redirect('staff_feedback_view')
 
 
 @login_required(login_url='/')
