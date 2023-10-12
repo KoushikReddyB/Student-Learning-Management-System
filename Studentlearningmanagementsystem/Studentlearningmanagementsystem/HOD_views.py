@@ -545,19 +545,33 @@ def STAFF_FEEDBACK_VIEW(request):
 def STAFF_FEEDBACK_REPLY(request, admin):
     if request.method == 'POST':
         staff_id = request.POST.get("staff_id")
-        reply = request.POST.get('feedback_reply')
-        feedback = Staff_Feedback.objects.filter(staff_id = admin)
-        reply_feedback = Staff_Feedback(
-            staff_id = staff_id,
-            feedback = feedback,
-            feedback_reply = reply,
-        )
-        # print(staff_id, feedback, reply)
-        reply_feedback.save()
-        messages.success(request, 'Reply sent successfully.')
+        reply_text = request.POST.get('feedback_reply')  # Ensure the name matches the form field name
+        try:
+            feedback = Staff_Feedback.objects.get(staff_id=admin)
+            feedback.feedback_reply = reply_text
+            feedback.save()
+            messages.success(request, 'Reply sent successfully.')
+        except Staff_Feedback.DoesNotExist:
+            # If the feedback doesn't exist, you can create a new one
+            staff = Staff.objects.get(admin=admin)
+            feedback = Staff_Feedback(staff_id=staff, feedback_reply=reply_text)
+            feedback.save()
+            messages.success(request, 'Reply sent successfully.')
+
         return redirect('staff_feedback_view')
+
     return redirect('staff_feedback_view')
+
 
 @login_required(login_url='/')
 def STAFF_FEEDBACK_IGNORE(request, id):
-     return redirect('staff_feedback_view')
+    if request.method == 'GET':
+        try:
+            feedback = Staff_Feedback.objects.get(id=id)
+            feedback.status = "NO_REP"
+            feedback.save()
+            messages.success(request, 'Staff feedback ignored successfully.')
+        except Staff_Feedback.DoesNotExist:
+            messages.error(request, 'Staff feedback not found.')
+
+    return redirect('staff_feedback_view')
