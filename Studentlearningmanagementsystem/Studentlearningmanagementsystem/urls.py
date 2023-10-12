@@ -57,8 +57,8 @@ urlpatterns = [
     path('HOD/Staff/Dispprove_Leave/<str:id>', HOD_views.STAFF_DISAPPROVE_LEAVE, name = 'staff_disapprove_leave'),
     ####
     path('HOD/Staff/Feedback', HOD_views.STAFF_FEEDBACK_VIEW, name = 'staff_feedback_view'),
-    path('HOD/Staff/Feedback_Reply/<str:id>', HOD_views.STAFF_FEEDBACK_REPLY, name = 'Staff_feedback_reply'),
-    path('HOD/Staff/Feedback_Ignore/<str:id>', HOD_views.STAFF_FEEDBACK_IGNORE, name = 'Staff_feedback_ignore'),
+    path('HOD/Staff/Feedback_Reply/<str:admin>', HOD_views.STAFF_FEEDBACK_REPLY, name = 'Staff_feedback_reply'),
+    path('HOD/Staff/Feedback_Ignore/<str:admin>', HOD_views.STAFF_FEEDBACK_IGNORE, name = 'Staff_feedback_ignore'),
 
     # THIS IS FOR STAFF URLS
     path('Staff/home', Staff_views.HOME, name = 'Staff_home'),

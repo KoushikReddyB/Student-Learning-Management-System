@@ -40,7 +40,7 @@
                              <td>{{i.feedback}}</td>
                              <td class="text-center">
                               {% if i.status == "" or i.reply is none %}
-                              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#sendnotification-{{forloop.counter}}"><i class="fa fa-check"></i>
+                              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#sendfeedback-{{forloop.counter}}"><i class="fa fa-check"></i>
                                  Reply
                              </button>
                              <a href="{% url 'Staff_feedback_ignore' i.id %}" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Ignore</a>
@@ -62,12 +62,12 @@
  </div>
 
 
-<!-- View all notifications Modal-->
+<!-- View all Feedback  Modal-->
 <div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle1">All Notifications </h5>
+          <h5 class="modal-title" id="exampleModalLongTitle1">All Staff Feedbacks Responses </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -86,7 +86,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                              {% for i in see_notifications %}
+                              {% for i in staff_feedback %}
                               <tr>
                                   <td>{{i.message}}</td>
 
@@ -113,9 +113,9 @@
     </div>
   </div>
 
-<!-- View Staff notifications Modal -->
+<!-- View Staff feedback Modal -->
 {% for i in staff_feedback %}
-<div class="modal fade" id="sendnotification-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="sendfeedback-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content">
        <div class="modal-header">
@@ -125,14 +125,14 @@
          </button>
        </div>
        <div class="modal-body">
-         <form method="post" action="{% url 'staff_save_notifications' %}">
+         <form method="post" action="{% url 'staff_feedback' %}">
             {% csrf_token %}
             <div class="form-group">
               <label for="feedback">Staff Feedback</label>
               <input type="text" class="form-control" name="feedback" value="{{i.feedback}}" readonly>
             </div>
             <div class="form-group">
-              <label for="reply">Reply to Feedback</label>
+              <label for="feedback_reply">Reply to Feedback</label>
               <textarea class="form-control" name="reply" rows="2" required></textarea>
             </div>   
             <input type="text" class="form-control" name="staff_id" value="{{i.staff_id.id}}" readonly hidden>

@@ -540,27 +540,19 @@ def STAFF_FEEDBACK_VIEW(request):
         'staff': staff,
     }
     return render(request, 'Hod/staff_feedback.html', context)
-'''
-    
-        feedback = Staff_Feedback(
-            staff_id = staff,
-            feedback = feedback, 
-            feedback_reply = "",
-        )
-        feedback.save()
-        messages.success(request, "Successfully Sent the Feedback")
-        '''
+
 @login_required(login_url='/')
-def STAFF_FEEDBACK_REPLY(request, id):
+def STAFF_FEEDBACK_REPLY(request, admin):
     if request.method == 'POST':
         staff_id = request.POST.get("staff_id")
-        reply = request.POST.get('reply')
-
-        staff = Staff.objects.get(id = staff_id)
+        reply = request.POST.get('feedback_reply')
+        feedback = Staff_Feedback.objects.filter(staff_id = admin)
         reply_feedback = Staff_Feedback(
-            staff_id = staff,
+            staff_id = staff_id,
+            feedback = feedback,
             feedback_reply = reply,
         )
+        # print(staff_id, feedback, reply)
         reply_feedback.save()
         messages.success(request, 'Reply sent successfully.')
         return redirect('staff_feedback_view')
