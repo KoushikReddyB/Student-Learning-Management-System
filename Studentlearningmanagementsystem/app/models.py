@@ -131,3 +131,17 @@ class Student_Notifications(models.Model):
 
     def __str__(self):
         return self.student_id.admin.first_name + self.student_id.admin.last_name
+    
+
+class Student_Feedback(models.Model):
+    student_id = models.ForeignKey(Student, on_delete = models.CASCADE)
+    feedback = models.TextField()
+    feedback_reply = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True) 
+    updated_at = models.DateTimeField(auto_now_add=True) 
+
+    class Meta:
+        db_table = 'student_feedback_table'
+
+    def __str__(self):
+        return str(self.staff_id.admin.username)

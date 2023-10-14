@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+   <div class="page-header">
+      <div class="row align-items-center">
+         <div class="col">
+            <h3 class="page-title">Send Feedback</h3>
+            <ul class="breadcrumb">
+               <li class="breadcrumb-item"><a href="{% url 'Student_home' %}">Dashboard</a></li>
+               <li class="breadcrumb-item active">Send Feedback</li>
+            </ul>
+         </div>
+         <div class="col-auto text-right float-right ml-auto">
+            <button class="btn btn-info mr-2" data-toggle="modal" data-target=".bd-example-modal-lg">
+               <i class="fas fa-history"></i> Feedback History
+           </button>           
+         </div>
+      </div>
+   </div>
+                  
+   {% include 'includes/messages.html' %}
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="card">
+            <div class="card-body">
+               <form method="post" action="{% url 'Student_feedback_save' %}">
+                  {% csrf_token %}
+                  <div class="col-12">
+                     <h5 class="form-title"><span>Send Feedback</span></h5>
+                  </div>
+                  <div class="col-sm-11">
+                     <div class="form-group">
+                        <label>Feedback Message</label>
+                        <textarea class="form-control" name="feedback" placeholder="Your Feedback here" required></textarea>
+                     </div>
+                  </div>
+                  <br>
+                  <div class="col-12">
+                     <button type="submit" class="btn btn-primary">Send Feedback</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Feedback History</h5>
+      </div>
+      
+    <div class="row">
+       <div class="col-sm-12">
+          <div class="card card-table">
+             <div class="card-body">{% if student_feedback_history %}
+               <div class="table-responsive">
+                   <table id='table_id' class="table table-hover table-center mb-0">
+                       <thead>
+                           <tr>
+                               <th class="text-center">Feedback</th>
+                               <th class="text-center">Reply</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           {% for i in student_feedback_history %}
+                               <tr>
+                                   <td>{{ i.feedback }}</td>
+                                   <td class="text-center">
+                                       <div class="actions">
+                                           {% if i.reply == "" or i.reply is none %}
+                                               <button class="badge badge-success" disabled="disabled"><i class="fas fa-hourglass"></i> Reply Pending</button>
+                                           {% elif i.reply == "NO_REP" %}
+                                               <button class="badge badge-danger" disabled="disabled"><i class="fa fa-check"></i> No Reply</button>
+                                               {% else %}
+                                               <button class="badge badge-info" disabled="disabled"> {{i.reply}} </button>
+                                           {% endif %}
+                                       </div>
+                                   </td>
+                               </tr>
+                           {% endfor %}
+                       </tbody>
+                   </table>
+               </div>
+           {% else %}
+               <p>No feedback history available.</p>
+           {% endif %}
+           
+             </div>
+          </div>
+       </div>
+   </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

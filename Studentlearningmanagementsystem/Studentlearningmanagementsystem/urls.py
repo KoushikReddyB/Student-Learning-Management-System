@@ -72,6 +72,7 @@ urlpatterns = [
     ####
     path('Staff/Apply_Leave', Staff_views.STAFF_APPLY_LEAVE, name = 'Staff_apply_leave'),
     path('Staff/Apply_Leave_Save', Staff_views.STAFF_APPLY_LEAVE_SAVE, name = 'Staff_apply_leave_save'),
+    ####
     path('Staff/Feedback', Staff_views.STAFF_FEEDBACK, name = 'Staff_feedback'),
     path('Staff/Feedback/Save', Staff_views.STAFF_FEEDBACK_SAVE, name = 'Staff_feedback_save'),
 
@@ -80,4 +81,9 @@ urlpatterns = [
      ####
      path('Student/Notifications', Student_views.NOTIFICATIONS, name = 'student_notifications'),
     path('Student/Mark_as_done/<str:status>', Student_views.STUDENT_NOTIFICATION_MARK_AS_DONE, name='student_notification_mark_as_mark'),
+    ####
+    path('Student/Feedback', Student_views.STUDENT_FEEDBACK, name = 'Student_feedback'),
+    path('Student/Feedback/Save', Student_views.STUDENT_FEEDBACK_SAVE, name = 'Student_feedback_save'),
+    ####
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
