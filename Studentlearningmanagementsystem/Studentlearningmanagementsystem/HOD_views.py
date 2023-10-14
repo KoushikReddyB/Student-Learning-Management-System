@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import CustomUser, Staff_Feedback, Staff_Leave, Staff_Notifications, Student_Notifications
+from app.models import CustomUser, Staff_Feedback, Staff_Leave, Staff_Notifications, Student_Feedback, Student_Notifications
 from app.models import Program, Session_Year, Student, Staff, Course
 from django.contrib import messages
 
@@ -602,3 +602,49 @@ def STUDENT_SAVE_NOTIFICATIONS(request):
         messages.success(request, "Notification is sent successfully ")
         return redirect('student_send_notifications')
     return render(request, 'Hod/student_notifications.html')
+
+@login_required(login_url='/')
+def STUDENT_FEEDBACK_VIEW(request):
+    student_feedback = Student_Feedback.objects.all()
+    student = Student.objects.all()
+
+    context = {
+        "student_feedback": student_feedback,
+        'student': student,
+    }
+    return render(request, 'Hod/student_feedback.html', context)
+
+@login_required(login_url='/')
+def STUDENT_FEEDBACK_REPLY(request, admin):
+    if request.method == 'POST':
+        student_id = request.POST.get("student_id")
+        reply_text = request.POST.get('feedback_reply')  # Ensure the name matches the form field name
+        try:
+            feedback = Student_Feedback.objects.get(student_id=admin)
+            feedback.feedback_reply = reply_text
+            feedback.save()
+            messages.success(request, 'Reply sent successfully.')
+        except Student_Feedback.DoesNotExist:
+            # If the feedback doesn't exist, you can create a new one
+            student = Student.objects.get(admin=admin)
+            feedback = Student_Feedback(student_id=student, feedback_reply=reply_text)
+            feedback.save()
+            messages.success(request, 'Reply sent successfully.')
+
+        return redirect('student_feedback_view')
+
+    return redirect('student_feedback_view')
+
+
+@login_required(login_url='/')
+def STUDENT_FEEDBACK_IGNORE(request, id):
+    if request.method == 'GET':
+        try:
+            feedback = Student_Feedback.objects.get(id=id)
+            feedback.status = "NO_REP"
+            feedback.save()
+            messages.success(request, 'Student feedback ignored successfully.')
+        except Student_Feedback.DoesNotExist:
+            messages.error(request, 'Student feedback not found.')
+
+    return redirect('student_feedback_view')

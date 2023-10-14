@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="content container-fluid">
+    <div class="page-header">
+       <div class="row align-items-center">
+          <div class="col">
+             <h3 class="page-title">Student Feedback Resolution</h3>
+             <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'HOD_home' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Student Feedback Resolution</li>
+             </ul>
+          </div>
+          {% include 'includes/messages.html' %}
+          <div class="col-auto text-right float-right ml-auto">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#example"><i class="fas fa-comment"></i>
+                View all Student Feedbacks
+            </button>
+          </div>
+       </div>
+    </div>
+    <div class="row">
+       <div class="col-sm-12">
+          <div class="card card-table">
+             <div class="card-body">
+                <div class="table-responsive">
+                  <table id="table_id" class="table table-hover table-center mb-0">
+                     <thead>
+                         <tr>
+                             <th class="text-center">Username</th>
+                             <th class="text-center">Date</th>
+                             <th class="text-center">Feedback Message</th>
+                             <th class="text-center">Action</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         {% for i in student_feedback %}
+                         <tr>
+                             <td class="text-center">{{i.student_id.admin.username}}</td>
+                             <td class="text-center">{{i.updated_at}}</td>
+                             <td>{{i.feedback}}</td>
+                             <td class="text-center">
+                              {% if i.status == "NO_REP" %}
+                              <button class="btn btn-danger btn-sm" disabled="disabled"><i class="fa fa-ban"></i> Ignored</button>
+                              {% elif i.feedback_reply is not empty %}
+                              <button class="btn btn-success btn-sm" disabled="disabled"><i class="fa fa-check"></i> Sent Reply</button>
+                              {% else %}
+                              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#sendfeedback-{{forloop.counter}}"><i class="fa fa-check"></i>
+                                 Reply
+                              </button>
+                              <a href="{% url 'Student_feedback_ignore' i.id %}" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Ignore</a>
+                              {% endif %}
+                             </td>
+                         </tr>
+                         {% endfor %}
+                     </tbody>
+                   </table>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+
+<!-- View all Feedback  Modal-->
+<div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle1">All Student Feedbacks Responses </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="card card-table">
+                  <div class="card-body">
+                     <div class="table-responsive">
+                       <table id="table_id" class="table table-hover table-center mb-0">
+                          <thead>
+                              <tr>
+                                  <th style="width:60%">Feedback</th>
+                                  <th style="width:30%" class="text-right">Reply</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for i in student_feedback %}
+                              <tr>
+                                  <td>{{i.feedback}}</td>
+
+                                  {% if i.status == "NO_REP" %}
+                                  <td><span class="badge badge-danger">Ignored</span></td>
+                                  {% elif i.feedback_reply %}
+                                  <td><span class="badge badge-success">Sent Reply</span></td>
+                                  {% else %}
+                                  <td><span class="badge badge-danger">Not Seen the message</span></td>
+                                  {% endif %}
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- View Student feedback Modal -->
+{% for i in student_feedback %}
+<div class="modal fade" id="sendfeedback-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLongTitle">Reply to Student Feedback</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <form method="post" action="{% url 'Student_feedback_reply' i.student_id.admin.username %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="feedback">Student Feedback</label>
+              <input type="text" class="form-control" name="feedback" value="{{i.feedback}}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="feedback_reply">Reply to Feedback</label>
+              <textarea class="form-control" name="feedback_reply" rows="2" required></textarea>
+            </div>   
+            <input type="text" class="form-control" name="student_id" value="{{i.student_id.admin.username}}" readonly hidden>
+            <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-paper-plane"></i> Send Reply</button>
+          </form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       </div>
+     </div>
+   </div>
+</div>
+{% endfor %}
+{% endblock %}
