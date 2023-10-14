@@ -5,6 +5,7 @@
     <div class="col-sm-12">
        <div class="card">
           <div class="card-body">
+            {% if action is None %}
              <form method="post" action="?action=get_student">
                 {% csrf_token %}
                    <div class="col-12">
@@ -38,6 +39,62 @@
                       <button type="submit" class="btn btn-primary">Fetch Student</button>
                    </div>
              </form> 
+             {% else %}
+             <div class="row">
+                <div class="col-sm-12">
+                   <div class="card">
+                      <div class="card-body">
+                         <form method="post" action="{% url 'add_course' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                               <div class="col-12">
+                                  <h5 class="form-title"><span>Add Course</span></h5>
+                               </div>
+            
+                               {% include 'includes/messages.html' %}
+            
+                               <div class="col-sm-11">
+                                  <div class="form-group">
+                                     <label>Course Code</label>
+                                     <input type="text" class="form-control" name="course_code" required>
+                                  </div>
+                               </div>
+                               <div class="col-sm-11">
+                                  <div class="form-group">
+                                     <label>Course Title</label>
+                                     <input type="text" class="form-control" name="course_title" required>
+                                  </div>
+                               </div>
+                             <div class="col-sm-11">
+                                  <label>Program</label>
+                                     <select class="form-control" name="program_id" required>
+                                        <option>Select Program</option>
+                                         {% for i in program %}
+                                        <option value="{{i.id}}">{{i.name}}</option>
+                                         {% endfor %}
+                                     </select>
+                               </div>
+                            <br>
+                            <div class="col-sm-11">
+                                <label>Staff</label>
+                                   <select class="form-control" name="staff_id" required>
+                                      <option>Select Staff</option>
+                                       {% for i in staff %}
+                                      <option value="{{i.id}}">{{i.id}} - {{i.admin.first_name}}&nbsp;{{i.admin.last_name}}</option>
+                                       {% endfor %}
+                                   </select>
+                             </div>
+                          <br>
+                             <br>
+                               <div class="col-12">
+                                  <button type="submit" class="btn btn-primary">Add Course</button>
+                               </div>
+                         </form> 
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+             {% endif %}
           </div>
        </div>
     </div>
