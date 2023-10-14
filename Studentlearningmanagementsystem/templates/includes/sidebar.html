@@ -51,13 +51,15 @@
             <li class = {% active_link 'staff_send_notifications' 'active' %}>
                <a href="{% url 'staff_send_notifications' %}"><i class="fa fa-bell"></i> <span>Send Staff Notification</span></a>
            </li>
-           
+           <li class = {% active_link 'student_send_notifications' 'active' %}>
+            <a href="{% url 'student_send_notifications' %}"><i class="fa fa-bell"></i> <span>Send Student Notification</span></a>
+        </li>
            <li class = {% active_link 'staff_feedback_view' 'active' %}>
                <a href="{% url 'staff_feedback_view' %}"><i class="fa fa-comments"></i> <span>Staff Feedback</span></a>
            </li>
            
-           <li class = {% active_link 'Staff_Home' 'active' %}>
-               <a href="#"><i class="fa fa-comments"></i> <span>Student Feedback</span></a>
+           <li class = {% active_link 'student_feedback_view' 'active' %}>
+               <a href="$"><i class="fa fa-comments"></i> <span>Student Feedback</span></a>
            </li>
            
            <li class = {% active_link 'staff_leave_view' 'active' %}>

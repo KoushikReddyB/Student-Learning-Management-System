@@ -116,8 +116,8 @@
     </div>
   </div>
 
-<!-- View Staff notifications Modal -->
-{% for i in staff %}
+<!-- View Student notifications Modal -->
+{% for i in student %}
 <div class="modal fade" id="sendnotification-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content">
@@ -128,11 +128,11 @@
          </button>
        </div>
        <div class="modal-body">
-         <form method="post" action="{% url 'staff_save_notifications' %}">
+         <form method="post" action="{% url 'student_save_notifications' %}">
             {% csrf_token %}
             <div class="form-group">
               <input class="form-control" placeholder="Write your message here" name="message">
-              <input type="hidden" name="staff_id" value="{{i.admin.id}}">
+              <input type="hidden" name="student_id" value="{{i.admin.id}}">
             </div>
             <!-- Change the button type to "submit" -->
             <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-paper-plane"></i> Send Notification</button>
