@@ -51,6 +51,10 @@ urlpatterns = [
     ####
     path('HOD/Staff/Send_Notification', HOD_views.STAFF_SEND_NOTIFICATIONS, name = 'staff_send_notifications'),
     path('HOD/Staff/Save_Notification', HOD_views.STAFF_SAVE_NOTIFICATIONS, name = 'staff_save_notifications'),
+
+    
+    path('HOD/Student/Send_Notification', HOD_views.STUDENT_SEND_NOTIFICATIONS, name = 'student_send_notifications'),
+    path('HOD/Student/Save_Notification', HOD_views.STUDENT_SAVE_NOTIFICATIONS, name = 'student_save_notifications'),
     ####
     path('HOD/Staff/Leave_View', HOD_views.STAFF_LEAVE_VIEW, name = 'staff_leave_view'),
     path('HOD/Staff/Approve_Leave/<str:id>', HOD_views.STAFF_APPROVE_LEAVE, name = 'staff_approve_leave'),
@@ -70,4 +74,7 @@ urlpatterns = [
     path('Staff/Apply_Leave_Save', Staff_views.STAFF_APPLY_LEAVE_SAVE, name = 'Staff_apply_leave_save'),
     path('Staff/Feedback', Staff_views.STAFF_FEEDBACK, name = 'Staff_feedback'),
     path('Staff/Feedback/Save', Staff_views.STAFF_FEEDBACK_SAVE, name = 'Staff_feedback_save'),
+
+    # THIS IS FOR THE STUDENT URLS 
+     path('Student/home', Student_views.HOME, name = 'Student_home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

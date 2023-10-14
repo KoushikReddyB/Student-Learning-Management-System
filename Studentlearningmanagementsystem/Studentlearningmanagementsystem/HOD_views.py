@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import CustomUser, Staff_Feedback, Staff_Leave, Staff_Notifications
+from app.models import CustomUser, Staff_Feedback, Staff_Leave, Staff_Notifications, Student_Notifications
 from app.models import Program, Session_Year, Student, Staff, Course
 from django.contrib import messages
 
@@ -575,3 +575,30 @@ def STAFF_FEEDBACK_IGNORE(request, id):
             messages.error(request, 'Staff feedback not found.')
 
     return redirect('staff_feedback_view')
+
+
+@login_required(login_url='/')
+def STUDENT_SEND_NOTIFICATIONS(request):
+    student = Student.objects.all()
+    see_notifications = Student_Notifications.objects.all().order_by('-id')[0:5]
+    context = {
+        'student' : student,
+        'see_notifications': see_notifications,
+    }
+    return render(request, 'Hod/student_notifications.html', context)
+
+@login_required(login_url='/')
+def STUDENT_SAVE_NOTIFICATIONS(request):
+    if request.method == 'POST':
+        student_id = request.POST.get('student_id')
+        message = request.POST.get('message')
+
+        student = Student.objects.get(admin = student_id)
+        notifications = Student_Notifications (
+            student_id = student,
+            message = message,
+        )
+        notifications.save()
+        messages.success(request, "Notification is sent successfully ")
+        return redirect('student_send_notifications')
+    return render(request, 'Hod/student_notifications.html')
