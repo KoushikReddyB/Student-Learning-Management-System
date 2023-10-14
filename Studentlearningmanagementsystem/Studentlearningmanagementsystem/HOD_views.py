@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import CustomUser, Staff_Feedback, Staff_Leave, Staff_Notifications, Student_Feedback, Student_Notifications
+from app.models import CustomUser, Staff_Feedback, Staff_Leave, Staff_Notifications, Student_Feedback, Student_Leave, Student_Notifications
 from app.models import Program, Session_Year, Student, Staff, Course
 from django.contrib import messages
 
@@ -648,3 +648,28 @@ def STUDENT_FEEDBACK_IGNORE(request, id):
             messages.error(request, 'Student feedback not found.')
 
     return redirect('student_feedback_view')
+
+@login_required(login_url='/')
+def STUDENT_LEAVE_VIEW(request):
+    student_leave = Student_Leave.objects.all()
+
+    context = {
+        "student_leave": student_leave,
+    }
+    return render(request, 'Hod/student_leave.html', context)
+
+
+@login_required(login_url='/')
+def STUDENT_APPROVE_LEAVE(request, id):
+    leave = Student_Leave.objects.get(id = id)
+    leave.status = 1
+    leave.save()
+    return redirect('student_leave_view')
+
+
+@login_required(login_url='/')
+def STUDENT_DISAPPROVE_LEAVE(request, id):
+    leave = Student_Leave.objects.get(id = id)
+    leave.status = 2
+    leave.save()
+    return redirect('student_leave_view')

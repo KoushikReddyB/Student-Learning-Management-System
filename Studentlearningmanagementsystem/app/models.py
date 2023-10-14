@@ -144,4 +144,18 @@ class Student_Feedback(models.Model):
         db_table = 'student_feedback_table'
 
     def __str__(self):
-        return str(self.staff_id.admin.username)
+        return str(self.student_id.admin.username)
+    
+class Student_Leave(models.Model):
+    student_id = models.ForeignKey(Student, on_delete = models.CASCADE)
+    date = models.CharField(max_length = 50)
+    message = models.TextField()
+    status = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True) 
+    updated_at = models.DateTimeField(auto_now_add=True) 
+
+    class Meta:
+        db_table = 'student_leave_table'
+
+    def __str__(self):
+        return str(self.student_id.admin.first_name + self.student_id.admin.last_name)

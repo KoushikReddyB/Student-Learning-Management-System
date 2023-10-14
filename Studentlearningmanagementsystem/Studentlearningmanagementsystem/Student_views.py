@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import CustomUser, Staff_Feedback, Staff_Leave, Student_Feedback, Student_Notifications
+from app.models import CustomUser, Staff_Feedback, Staff_Leave, Student_Feedback, Student_Leave, Student_Notifications
 from app.models import Program, Session_Year, Student, Staff, Course, Staff_Notifications
 from django.contrib import messages
 
@@ -12,7 +12,7 @@ def HOME(request):
 @login_required(login_url='/')
 def NOTIFICATIONS(request):
      student = Student.objects.filter(admin = request.user.id)
-     # print(staff)
+     # print(student)
      for i in student:
           student_id = i.id
           notification = Student_Notifications.objects.filter(student_id = student_id)
@@ -60,3 +60,37 @@ def STUDENT_FEEDBACK_SAVE(request):
         feedback.save()
         messages.success(request, "Successfully Sent the Feedback")
     return redirect('Student_feedback')
+
+@login_required(login_url='/')
+def STUDENT_APPLY_LEAVE(request):
+    student = Student.objects.filter(admin = request.user.id)
+    for i in student:
+        # print(i.id)
+        student_leave_history = Student_Leave.objects.filter(student_id=i.id)
+
+        context = {
+            'student_leave_history': student_leave_history,
+
+        }
+
+    return render(request, 'Student/student_apply_leave.html', context)
+
+
+@login_required(login_url='/')
+def STUDENT_APPLY_LEAVE_SAVE(request):
+    if request.method == "POST":
+        date = request.POST.get('date')
+        message = request.POST.get('message')
+
+        student = Student.objects.get(admin=request.user.id)
+
+        leave = Student_Leave(
+            student_id=student,
+            date=date,
+            message=message,
+        )
+
+        leave.save()
+        messages.success(request, "You Sent a request to apply for leave")
+        return render(request, 'Student/student_apply_leave.html')
+    return HttpResponse("Invalid Request")

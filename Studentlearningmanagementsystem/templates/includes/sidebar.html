@@ -66,8 +66,8 @@
                <a href="{% url 'staff_leave_view' %}"><i class="fa fa-envelope"></i> <span>Staff Leave</span></a>
            </li>
            
-           <li class = {% active_link 'Staff_Home' 'active' %}>
-               <a href="#"><i class="fa fa-envelope"></i> <span>Student Leave</span></a>
+           <li class = {% active_link 'student_leave_view' 'active' %}>
+               <a href="{% url 'student_leave_view' %}"><i class="fa fa-envelope"></i> <span>Student Leave</span></a>
            </li>       
            <li>
                <a href="{% url 'Logout' %}"><i class="fa fa-sign-out-alt"></i> <span>Logout</span></a>
@@ -125,8 +125,8 @@
             <li class = {% active_link 'Student_feedback' 'active' %}>
                <a href="{% url 'Student_feedback' %}"><i class="fas fa-comment"></i> <span>Send Feedback</span></a>
             </li>
-            <li class = {% active_link 'Staff_apply_leave' 'active' %}>
-               <a href="{% url 'Staff_apply_leave' %}"><i class="fas fa-envelope-open"></i> <span>Apply for Leave</span></a>
+            <li class = {% active_link 'Student_apply_leave' 'active' %}>
+               <a href="{% url 'Student_apply_leave' %}"><i class="fas fa-envelope-open"></i> <span>Apply for Leave</span></a>
             </li>
             <li>
                <a href="{% url 'Logout' %}"><i class="fa fa-sign-out-alt"></i> <span>Logout</span></a>
