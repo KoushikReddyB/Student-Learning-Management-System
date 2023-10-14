@@ -96,3 +96,15 @@ def STAFF_FEEDBACK_SAVE(request):
         feedback.save()
         messages.success(request, "Successfully Sent the Feedback")
     return redirect('Staff_feedback')
+
+def STAFF_TAKE_ATTENDANCE(request):
+    staff_id = Staff.objects.get(admin = request.user.id)
+
+    course = Course.objects.filter(staff = staff_id)
+    session_year = Session_Year.objects.all()
+
+    context = {
+        'course': course,
+        'session_year': session_year,
+    }
+    return render(request, 'Staff/take_attendance.html', context)

@@ -83,6 +83,8 @@ urlpatterns = [
     ####
     path('Staff/Feedback', Staff_views.STAFF_FEEDBACK, name = 'Staff_feedback'),
     path('Staff/Feedback/Save', Staff_views.STAFF_FEEDBACK_SAVE, name = 'Staff_feedback_save'),
+    ####
+    path('Staff/Take_Attendance', Staff_views.STAFF_TAKE_ATTENDANCE, name = 'Staff_take_attendance'),
 
     # THIS IS FOR THE STUDENT URLS 
      path('Student/home', Student_views.HOME, name = 'Student_home'),

@@ -159,3 +159,28 @@ class Student_Leave(models.Model):
 
     def __str__(self):
         return str(self.student_id.admin.first_name + self.student_id.admin.last_name)
+    
+class Attendance(models.Model):
+    course_id = models.ForeignKey(Course, on_delete = models.DO_NOTHING)
+    attendance_date = models.DateField()
+    session_year_id = models.ForeignKey(Session_Year, on_delete = models.DO_NOTHING)
+    created_at = models.DateTimeField(auto_now_add=True) 
+    updated_at = models.DateTimeField(auto_now_add=True) 
+
+    class Meta:
+        db_table = 'attendance_table'
+
+    def __str__(self):
+        return str(self.course_id.course_code + '--->' + self.course_id.course_name)
+    
+class Attendance_Report(models.Model):
+    student_id = models.ForeignKey(Student, on_delete=models.DO_NOTHING, related_name='attendance_reports_as_student')
+    attendance_id = models.ForeignKey(Attendance, on_delete=models.CASCADE, related_name='attendance_reports')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'attendance_report_table'
+
+    def __str__(self):
+        return str(self.student_id.admin.username)

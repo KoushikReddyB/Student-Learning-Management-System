@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+       <div class="card">
+          <div class="card-body">
+             <form method="post" action="?action=get_student">
+                {% csrf_token %}
+                   <div class="col-12">
+                      <h5 class="form-title"><span>Take Attendance</span></h5>
+                   </div>
+
+                   {% include 'includes/messages.html' %}
+
+                 <div class="col-sm-11">
+                      <label>Course</label>
+                         <select class="form-control" name="course" required>
+                            <option>Select Course</option>
+                             {% for i in course %}
+                            <option value="{{i.id}}">{{i.course_title}}</option>
+                             {% endfor %}
+                         </select>
+                   </div>
+                <br>
+                <div class="col-sm-11">
+                    <label>Session Year</label>
+                       <select class="form-control" name="session_year" required>
+                          <option>Select Session Year</option>
+                           {% for i in session_year %}
+                          <option value="{{i.id}}">{{i.session_start}} - {{i.session_end}}</option>
+                           {% endfor %}
+                       </select>
+                 </div>
+              <br>
+                 <br>
+                   <div class="col-12">
+                      <button type="submit" class="btn btn-primary">Fetch Student</button>
+                   </div>
+             </form> 
+          </div>
+       </div>
+    </div>
+ </div>
+
+{% endblock %}
