@@ -77,4 +77,7 @@ urlpatterns = [
 
     # THIS IS FOR THE STUDENT URLS 
      path('Student/home', Student_views.HOME, name = 'Student_home'),
+     ####
+     path('Student/Notifications', Student_views.NOTIFICATIONS, name = 'student_notifications'),
+    path('Student/Mark_as_done/<str:status>', Student_views.STUDENT_NOTIFICATION_MARK_AS_DONE, name='student_notification_mark_as_mark'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
