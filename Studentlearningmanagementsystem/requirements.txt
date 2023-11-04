@@ -1,24 +1,5 @@
 django
 django-active-link
 Pillow
-requests  
-beautifulsoup4  
-numpy  
-pandas  
-matplotlib  
-flask  
-sqlalchemy  
-pytest  
-celery  
-redis  
-sentry-sdk  
-django-rest-framework 
-python-decouple  
-pytz  
-django-crispy-forms  
-gunicorn  
-djangorestframework-jwt 
-psycopg2  
-django-ckeditor  
-python-dateutil  
-django-widget-tweaks  
+dotenv
+psycopg2-binary django
