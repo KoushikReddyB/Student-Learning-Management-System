@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/punycode": "^2.1.1",
+    "global": "^4.4.0",
+    "vercel": "^32.5.0"
+  }
+}
