@@ -16,6 +16,7 @@ psycopg2==2.9.9
 psycopg2-binary==2.9.9
 pure-eval==0.2.2
 Pygments==2.16.1
+python-decouple==3.8
 six==1.16.0
 sqlparse==0.4.4
 stack-data==0.6.3
