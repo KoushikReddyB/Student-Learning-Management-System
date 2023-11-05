@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -120,7 +121,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config
+# DATABASES['default'] = dj_database_url.config
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -156,7 +157,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+STATIC_ROOT = BASE_DIR / 'staticfiles_build' / "static"
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
