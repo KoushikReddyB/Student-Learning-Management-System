@@ -120,6 +120,8 @@ DATABASES = {
     }
 }
 
+DATABASES['default'] = dj_database_url.config()
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
