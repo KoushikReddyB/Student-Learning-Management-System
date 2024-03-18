@@ -89,14 +89,14 @@ DATABASES = {
     }
 }
 '''
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
+
 '''
 DATABASES = {
     'default': {
@@ -109,7 +109,7 @@ DATABASES = {
     }
 }
 '''
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -120,7 +120,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+'''
 # DATABASES['default'] = dj_database_url.config
 
 # Password validation
